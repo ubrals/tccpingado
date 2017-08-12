@@ -2,7 +2,7 @@ package entities;
 
 import resources.HandleWallet;
 
-public class Producer implements HandleWallet {
+public class Producer extends CriptoPerson implements HandleWallet {
 
     public Producer() {
         // TODO Auto-generated constructor stub
