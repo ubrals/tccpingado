@@ -1,4 +1,4 @@
-package resources;
+package contracts;
 
 public interface JustintimeEcontract {
 

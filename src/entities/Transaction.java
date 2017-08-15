@@ -1,7 +1,6 @@
-package resources;
+package entities;
 
-import entities.CSP;
-import entities.CriptoPerson;
+import contracts.Econtract;
 
 public class Transaction {
     private Econtract econtract;
