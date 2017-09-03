@@ -1,6 +1,7 @@
 package resources;
 
 public class Wallet {
+    
     private byte[] balance;
     private String password;
     

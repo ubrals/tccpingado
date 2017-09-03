@@ -1,7 +1,5 @@
 package entities;
 
-import contracts.Econtract;
-
 public class Transaction {
     private long transactionId;
     

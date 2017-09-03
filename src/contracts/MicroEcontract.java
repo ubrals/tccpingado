@@ -1,5 +1,5 @@
 package contracts;
 
-public interface MicroEcontract {
+class MicroEcontract {
 
 }

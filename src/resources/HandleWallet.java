@@ -1,6 +1,7 @@
 package resources;
 
 public interface HandleWallet {
+    
     public static byte[] getBalance(){
         return new byte[]{};
     }

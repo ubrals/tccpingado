@@ -6,9 +6,9 @@ import pricing.orientations.Orientation;
 
 public class Framework {
     
-    Orientation orientation;
-    Category category;
-    Component component;
+    private Orientation orientation;
+    private Category category;
+    private Component component;
     
     public Framework() {
         // TODO Auto-generated constructor stub

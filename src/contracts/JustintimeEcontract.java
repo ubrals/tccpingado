@@ -1,5 +1,5 @@
 package contracts;
 
-public interface JustintimeEcontract {
+class JustintimeEcontract {
 
 }
