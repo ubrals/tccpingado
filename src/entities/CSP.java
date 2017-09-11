@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.values.Content;
 import resources.HandleWallet;
 
 public class CSP extends ISP {
