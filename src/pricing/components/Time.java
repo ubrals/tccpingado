@@ -1,9 +1,21 @@
 package pricing.components;
 
-public class Time extends Component {
+import pricing.categories.UsageDependent;
 
-    public Time() {
-        // TODO Auto-generated constructor stub
+public class Time extends UsageDependent {
+    
+    private long duration;
+    
+    public Time(long duration) {
+        this.duration = duration;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
 }

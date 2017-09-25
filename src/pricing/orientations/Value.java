@@ -1,6 +1,8 @@
 package pricing.orientations;
 
-public class Value extends Orientation {
+import pricing.Framework;
+
+public abstract class Value extends Framework {
 
     public Value() {
         // TODO Auto-generated constructor stub

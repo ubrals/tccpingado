@@ -1,25 +1,49 @@
 package entities;
 
+import entities.values.Content;
 import resources.HandleWallet;
 import resources.Wallet;
 
-public abstract class ISP extends Party implements HandleWallet {
-    
-    private Wallet wallet;
-    
-    public ISP() {
-        // TODO Auto-generated constructor stub
+public abstract class ISP extends CryptoPerson implements CSP {
+
+    public ISP(long id, String name, String walletPassword) {
+        super(id, name, walletPassword);
     }
 
-    public abstract void publishContent();
-    
-    public abstract void receiveContent();
-    
-    public abstract void listContent();
-    
-    public abstract void deliverContent();
-    
-    public abstract void chargeDeliveredContent();
-    
-    public abstract void payDeliveredContent();
+    @Override
+    public void publishContent(Content content) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void receiveContent(Content content) throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void listContent() throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void deliverContent() throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void chargeDeliveredContent() throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void payDeliveredContent() throws Exception {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

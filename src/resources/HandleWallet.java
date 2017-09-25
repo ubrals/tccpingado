@@ -2,23 +2,14 @@ package resources;
 
 public interface HandleWallet {
     
-    public static byte[] getBalance(){
-        return new byte[]{};
-    }
+    long getBalance();
     
-    public static void subtractBalance(){
-        
-    }
+    void subtractBalance(long balance);
     
-    public static void addBalance(){
-        
-    }
+    void addBalance(long balance);
     
-    public static void generateKey(){
-        
-    }
+    void generateKey();
     
-    public static byte[] sendKey(){
-        return new byte[]{};
-    }
+    String sendKey();
+
 }

@@ -1,9 +1,18 @@
 package contracts;
 
 class EnacmentEcontract {
+    private boolean valid;
 
-    public EnacmentEcontract() {
-        // TODO Auto-generated constructor stub
+    public EnacmentEcontract(boolean valid) {
+        this.valid = valid;
     }
 
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+    
 }

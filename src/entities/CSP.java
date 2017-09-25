@@ -6,48 +6,20 @@ import java.util.List;
 import entities.values.Content;
 import resources.HandleWallet;
 
-public class CSP extends ISP {
+public interface CSP {
     
-    private List contents = new ArrayList<Content>();
+    List contents = new ArrayList<Content>();
     
-    public CSP() {
-        // TODO Auto-generated constructor stub
-    }
+    public void publishContent(Content content) throws Exception;
 
-    @Override
-    public void publishContent() {
-        // TODO Auto-generated method stub
-        
-    }
+    public void receiveContent(Content content) throws Exception;
 
-    @Override
-    public void receiveContent() {
-        // TODO Auto-generated method stub
-        
-    }
+    public void listContent() throws Exception;
 
-    @Override
-    public void listContent() {
-        // TODO Auto-generated method stub
-        
-    }
+    public void deliverContent() throws Exception;
 
-    @Override
-    public void deliverContent() {
-        // TODO Auto-generated method stub
-        
-    }
+    public void chargeDeliveredContent() throws Exception;
 
-    @Override
-    public void chargeDeliveredContent() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void payDeliveredContent() {
-        // TODO Auto-generated method stub
-        
-    }
+    public void payDeliveredContent() throws Exception;
 
 }

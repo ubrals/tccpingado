@@ -2,26 +2,27 @@ package resources;
 
 public class Wallet {
     
-    private byte[] balance;
+    private long balance;
     private String password;
     
-    public Wallet() {
-        // TODO Auto-generated constructor stub
+    public Wallet(String password) {
+        this.balance = 0l;
+        this.password = password;
     }
     
-    public byte[] getBalance(){
-        return new byte[]{};
+    protected long getBalance(){
+        return balance;
     }
     
-    public void subtractBalance() throws Exception{
+    protected void subtractBalance(long balance) throws Exception{
         
     }
     
-    public void addBalance() throws Exception{
+    protected void addBalance(long balance) throws Exception{
         
     }
     
-    public void setPassword() throws Exception{
+    protected void setPassword() throws Exception{
         
     }
 }
