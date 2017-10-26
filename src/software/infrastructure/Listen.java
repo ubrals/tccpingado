@@ -34,7 +34,7 @@ public class Listen {
 //                            Runtime.getRuntime().exec("cat /Users/ubrals/ethereum/microTransacao.eth |/usr/local/bin/geth attach ipc:///Users/ubrals/ethereum/geth.ipc >/Users/ubrals/ethereum/`date +%s`");
                             if((int)Double.parseDouble(clientSentence) % 15 == 0){
                                 System.out.print("[" + new Date() + "] Ethereum: descontando 0.001 ether\n");
-                                System.out.println("tempo=" + clientSentence + " %40=" + (Double.parseDouble(clientSentence) % 40));
+//                                System.out.println("tempo=" + clientSentence + " %40=" + (Double.parseDouble(clientSentence) % 40));
                                 Runtime.getRuntime().exec("/Users/ubrals/ethereum/batch.sh");
                             }
                             if((int)Double.parseDouble(clientSentence) % 60 == 0){

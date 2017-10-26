@@ -17,6 +17,7 @@ public class PlayerVideo extends Application implements Runnable {
     // private String VIDEO_URL =
     // "file:///Users/ubrals/git/Pingado/PvsNP_480p.mp4";
     private String VIDEO_URL = "http://localhost/PvsNP_480p.mp4";
+//    private static long econtractId;
 
     public PlayerVideo() {
     }
@@ -24,6 +25,9 @@ public class PlayerVideo extends Application implements Runnable {
     public static void main(String[] args) {
         Runnable runnable = new PlayerVideo();
         Thread th = new Thread(runnable);
+//        try { econtractId = Long.parseLong(args[0]); }
+//        catch (NumberFormatException e) {        }
+//        finally { }
         th.start();
     }
 
@@ -69,7 +73,7 @@ public class PlayerVideo extends Application implements Runnable {
                                 "tempo total=" + mediaPlayer.getTotalDuration().toSeconds() + " " +
                                 "mediaPlayer.getCurrentTime().toSeconds()=" + mediaPlayer.getCurrentTime().toSeconds()
                                         + " ceil()=" + Math.ceil(mediaPlayer.getCurrentTime().toSeconds()));
-                        Runtime.getRuntime().exec("java -jar dist/Send.jar " + "localhost " + mediaPlayer.getCurrentTime().toSeconds());
+                        Runtime.getRuntime().exec("java -jar dist/Send.jar " + "localhost " + mediaPlayer.getCurrentTime().toSeconds() ); //+ " " + econtractId);
                     } catch (Exception e1) {
                         break;
                     }

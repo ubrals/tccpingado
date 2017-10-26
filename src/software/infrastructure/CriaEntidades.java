@@ -22,19 +22,59 @@ import entities.values.Product;
 import resources.Wallet;
 
 public class CriaEntidades {
-    static Wallet ispWallet;
-    static ISP isp;
+     Wallet ispWallet;
+     ISP isp;
 
-    static Wallet prdWallet;
-    static Producer producer;
+     Wallet prdWallet;
+     Producer producer;
 
-    static Wallet cstWallet;
-    static Customer customer;
+     Wallet cstWallet;
+     Customer customer;
 
-    static Econtract ectPrdXisp;
-    static Econtract ectIspXcst;
+     Econtract ectPrdXisp;
+     Econtract ectIspXcst;
 
-    static void criarEntidades() {
+     public ISP getIsp() {
+        return isp;
+    }
+
+    public void setIsp(ISP isp) {
+        this.isp = isp;
+    }
+
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Econtract getEctPrdXisp() {
+        return ectPrdXisp;
+    }
+
+    public void setEctPrdXisp(Econtract ectPrdXisp) {
+        this.ectPrdXisp = ectPrdXisp;
+    }
+
+    public Econtract getEctIspXcst() {
+        return ectIspXcst;
+    }
+
+    public void setEctIspXcst(Econtract ectIspXcst) {
+        this.ectIspXcst = ectIspXcst;
+    }
+
+    void criarEntidades() {
         // ISP
         ispWallet = new Wallet("senha");
         isp = new ISP((long) (Math.random() * 10000000l), "Provedor de conteudo LTDA");
@@ -52,7 +92,7 @@ public class CriaEntidades {
         customer.addCredits(200000l, Byte.valueOf("10"));
     }
 
-    static void criarContratoPrdIsp() {
+     void criarContratoPrdIsp() {
         ectPrdXisp = new Econtract();
         ExchangedValue content = new Content("video", null, ectPrdXisp, "PvsNP", 17000000l, (byte) 0, producer, isp);
         ectPrdXisp.setExchangedValue(content);
@@ -77,7 +117,7 @@ public class CriaEntidades {
         isp.receiveContent((Content) content);
     }
 
-    static void criarContratoIspCst(String nome) {
+     void criarContratoIspCst(String nome) {
         ectIspXcst = new Econtract();
         ExchangedValue content;
         for (Content cont : isp.listContent()) {
@@ -106,45 +146,45 @@ public class CriaEntidades {
         ectJust.setTimeToStartLong(ts);
     }
 
-    public static void main(String[] args) {
-        criarEntidades();
-        String sep = " :: ";
-        System.out.println(isp.getName() + sep + isp.getId() + sep + "$" + isp.getBalance());
-        System.out.println(producer.getName() + sep + producer.getId() + sep + "$" + producer.getBalance());
-        System.out.println(customer.getName() + sep + customer.getId() + sep + "$" + customer.getBalance());
-        System.out.println("+++++++++++++++");
-        criarContratoPrdIsp();
-        System.out.println(ectPrdXisp.getId() + sep + ((ArrayList<Party>) ectPrdXisp.getParty()).get(0).getName() + sep
-                + ((ArrayList<Party>) ectPrdXisp.getParty()).get(1).getName() + sep
-                + ectPrdXisp.getEnactmentEcontract().isValid() + sep 
-                + ((Content) ectPrdXisp.getExchangedValue()).getTitle()
-                );
-        // SimpleDateFormat sdfts = new SimpleDateFormat("dd/MM/YYYY
-        // HH:mm:ss.SS");
-        // long ts = System.currentTimeMillis();
-        // System.out.println(ts + " " + sdfts.format(ts));
-        // System.out.println(ts / 1000l / (2017l - 1970l));
-        // System.out.println(1000l * 60l * 60l * 24l);
-        // long mspdia = 1000l * 60l * 60l * 24l;
-        // ts = ts +(mspdia*5);
-        // System.out.println(ts + " " + sdfts.format(ts));
-        //
-        // long ap = 60l * 60l * 24l * 365l * (2017l-1970l) * 1000l;
-        // System.out.println(ap + " " + sdfts.format(ap));
-        //
-        // long ss = 1000l
-        // , mm = 60l * ss
-        // , hh = mm * 60l + 0l
-        //
-        // , DD = hh * 24l
-        // , MM = DD *30l
-        // , YY = DD * 365l
-        // , DIFF = (2017l-1970l)
-        // , ms = 1000l;
-        // ap = (ss + mm + hh + DD + MM + YY) * DIFF ;
-        // ts = System.currentTimeMillis();
-        // ap = ts + (DD * 5l) + hh/2l;
-        // System.out.println("ap:"+ ap + " " + sdfts.format(ap));
-    }
+//    public static void main(String[] args) {
+//        criarEntidades();
+//        String sep = " :: ";
+//        System.out.println(isp.getName() + sep + isp.getId() + sep + "$" + isp.getBalance());
+//        System.out.println(producer.getName() + sep + producer.getId() + sep + "$" + producer.getBalance());
+//        System.out.println(customer.getName() + sep + customer.getId() + sep + "$" + customer.getBalance());
+//        System.out.println("+++++++++++++++");
+//        criarContratoPrdIsp();
+//        System.out.println(ectPrdXisp.getId() + sep + ((ArrayList<Party>) ectPrdXisp.getParty()).get(0).getName() + sep
+//                + ((ArrayList<Party>) ectPrdXisp.getParty()).get(1).getName() + sep
+//                + ectPrdXisp.getEnactmentEcontract().isValid() + sep 
+//                + ((Content) ectPrdXisp.getExchangedValue()).getTitle()
+//                );
+//        // SimpleDateFormat sdfts = new SimpleDateFormat("dd/MM/YYYY
+//        // HH:mm:ss.SS");
+//        // long ts = System.currentTimeMillis();
+//        // System.out.println(ts + " " + sdfts.format(ts));
+//        // System.out.println(ts / 1000l / (2017l - 1970l));
+//        // System.out.println(1000l * 60l * 60l * 24l);
+//        // long mspdia = 1000l * 60l * 60l * 24l;
+//        // ts = ts +(mspdia*5);
+//        // System.out.println(ts + " " + sdfts.format(ts));
+//        //
+//        // long ap = 60l * 60l * 24l * 365l * (2017l-1970l) * 1000l;
+//        // System.out.println(ap + " " + sdfts.format(ap));
+//        //
+//        // long ss = 1000l
+//        // , mm = 60l * ss
+//        // , hh = mm * 60l + 0l
+//        //
+//        // , DD = hh * 24l
+//        // , MM = DD *30l
+//        // , YY = DD * 365l
+//        // , DIFF = (2017l-1970l)
+//        // , ms = 1000l;
+//        // ap = (ss + mm + hh + DD + MM + YY) * DIFF ;
+//        // ts = System.currentTimeMillis();
+//        // ap = ts + (DD * 5l) + hh/2l;
+//        // System.out.println("ap:"+ ap + " " + sdfts.format(ap));
+//    }
 
 }

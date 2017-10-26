@@ -10,6 +10,10 @@ public class ManagementEcontract {
         this.status = Status.UNKNOWN;
     }
 
+    public String getStatusLabel(){
+        return this.status.toString();
+    }
+    
     public int getStatus() {
         int status;
         switch (this.status) {
