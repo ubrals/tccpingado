@@ -1,0 +1,15 @@
+----------------------------------------------------------------
+Thu Dec 28 19:11:16 BRST 2017:
+ Inicializando o Derby versão The Apache Software F----------------------------------------------------------------
+Thu Dec 28 23:08:55 BRST 2017: Shutting down Derby engine
+----------------------------------------------------------------
+10.14.1.0-bin/bin/tccpingado 
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_65-b17
+user.dir=/Users/ubrals/Google Drive/MACK/TCCII/tccpingado/db-derby-10.14.1.0-bin/bin
+os.name=Mac OS X
+os.arch=x86_64
+os.version=10.13.2
+derby.system.home=null
+Carregador de classe do banco de dados iniciado - derby.database.classpath=''

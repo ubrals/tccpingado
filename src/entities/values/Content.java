@@ -11,13 +11,13 @@ public class Content extends Product {
 
 	private long size;
 
-	private byte content;
+	private byte content[];
 
 	private Producer producer;
 
 	private ISP iSP;
 
-    public Content(String type, String value, Econtract econtract, String title, long size, byte content,
+    public Content(String type, String value, Econtract econtract, String title, long size, byte content[],
             Producer producer, ISP iSP) {
         super(type, value, econtract);
         this.title = title;
@@ -43,11 +43,11 @@ public class Content extends Product {
         this.size = size;
     }
 
-    public byte getContent() {
+    public byte[] getContent() {
         return content;
     }
 
-    public void setContent(byte content) {
+    public void setContent(byte content[]) {
         this.content = content;
     }
 

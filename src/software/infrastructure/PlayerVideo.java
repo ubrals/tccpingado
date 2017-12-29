@@ -75,6 +75,7 @@ public class PlayerVideo extends Application implements Runnable {
                                         + " ceil()=" + Math.ceil(mediaPlayer.getCurrentTime().toSeconds()));
                         Runtime.getRuntime().exec("java -jar dist/Send.jar " + "localhost " + mediaPlayer.getCurrentTime().toSeconds() ); //+ " " + econtractId);
                     } catch (Exception e1) {
+                    	e1.printStackTrace();
                         break;
                     }
                     try {

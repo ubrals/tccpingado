@@ -94,7 +94,7 @@ public class CriaEntidades {
 
      void criarContratoPrdIsp() {
         ectPrdXisp = new Econtract();
-        ExchangedValue content = new Content("video", null, ectPrdXisp, "PvsNP", 17000000l, (byte) 0, producer, isp);
+        ExchangedValue content = new Content("video", null, ectPrdXisp, "PvsNP", 17000000l, new byte[]{ 0 }, producer, isp);
         ectPrdXisp.setExchangedValue(content);
 
         Collection<Party> party = new ArrayList<Party>();

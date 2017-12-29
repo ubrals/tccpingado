@@ -1,0 +1,19 @@
+cd "~/Google Drive/MACK/TCCII/tccpingado/db-derby-10.14.1.0-bin/bin"
+
+export DERBY_INSTALL=~/Google\ Drive/MACK/TCCII/tccpingado/db-derby-10.14.1.0-bin
+
+export CLASSPATH=$DERBY_INSTALL/lib/derby.jar:$DERBY_INSTALL/lib/derbytools.jar:.
+
+export DERBY_HOME=~/Google\ Drive/MACK/TCCII/tccpingado/db-derby-10.14.1.0-bin
+
+. setEmbeddedCP
+
+java org.apache.derby.tools.sysinfo
+
+vi startNetworkServer
+JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/Current
+JAVACMD="$JAVA_HOME/Commands/java"
+
+./startNetworkServer
+java org.apache.derby.tools.ij
+connect 'jdbc:derby:tccpingado;create=true';

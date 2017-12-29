@@ -37,6 +37,7 @@ public class Econtract {
     }
 
     private void setId() {
+		// TODO: aqui vai pegar do banco de dados, tipo next sequence
         double rnd = Math.random();
         long id = (long) (rnd * 1000000000000l);
         this.id = id;
