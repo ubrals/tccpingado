@@ -13,6 +13,7 @@ import resources.databases.dao.api.EcontractDaoInterface;
 
 public class EcontractDaoReacional implements EcontractDaoInterface {
 	private ConexaoInterface conexao;
+	
 
 	public EcontractDaoReacional(ConexaoInterface conexao) {
 		this.conexao = conexao;
