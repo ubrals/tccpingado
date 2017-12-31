@@ -17,9 +17,9 @@ public class Content extends Product {
 
 	private ISP iSP;
 
-    public Content(String type, String value, Econtract econtract, String title, long size, byte content[],
+    public Content(String type, String subType, String value, Econtract econtract, String title, long size, byte content[],
             Producer producer, ISP iSP) {
-        super(type, value, econtract);
+        super(type, subType, value, econtract);
         this.title = title;
         this.size = size;
         this.content = content;
