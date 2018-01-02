@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 import resources.databases.impl.relacional.ConexaoInterface;
 
-public class ConexaoJavaDb implements ConexaoInterface {
+public class ConexaoJavaDbDerby implements ConexaoInterface {
     private String usuario;
     private String senha;
     private String hostname;
@@ -13,7 +13,7 @@ public class ConexaoJavaDb implements ConexaoInterface {
     private String nomeBancoDados;
     private Connection conexao;
 
-    public ConexaoJavaDb(String usuario, String senha, String hostname, int porta, String nomeBancoDados) {
+    public ConexaoJavaDbDerby(String usuario, String senha, String hostname, int porta, String nomeBancoDados) {
         this.usuario = usuario;
         this.senha = senha;
         this.hostname = hostname;

@@ -14,7 +14,7 @@ import entities.values.ExchangedValue;
 import resources.databases.dao.api.CryptoPersonDaoInterface;
 import resources.databases.dao.api.EcontractDaoInterface;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
-import resources.databases.impl.relacional.javadb.ConexaoJavaDb;
+import resources.databases.impl.relacional.javadb.ConexaoJavaDbDerby;
 
 public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	private ConexaoInterface conexao;
@@ -27,16 +27,16 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	public List<Content> listContent() {
         List<Content> contents;
         contents = new ArrayList<>();
-        ConexaoInterface bd_conexao = new ConexaoJavaDb("", "", "127.0.0.1", 1527, "tccpingado");
+//        ConexaoInterface conexao = new ConexaoJavaDbDerby("", "", "127.0.0.1", 1527, "tccpingado");
         ////
         ExchangedValueDaoInterface exv_dao;
-        exv_dao = new ExchangedValueDaoReacional(bd_conexao);
+        exv_dao = new ExchangedValueDaoReacional(conexao);
         ////
         CryptoPersonDaoInterface crp_dao;
-        crp_dao = new CryptoPersonDaoReacional(bd_conexao);
+        crp_dao = new CryptoPersonDaoReacional(conexao);
         ////
         EcontractDaoInterface ect_dao;
-        ect_dao = new EcontractDaoReacional(bd_conexao);
+        ect_dao = new EcontractDaoReacional(conexao);
         
         try{
             Statement st;
@@ -78,23 +78,26 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	public Content findByContentId(long id) {
 		Content content = (Content) null;
 		
-        ConexaoInterface bd_conexao = new ConexaoJavaDb("", "", "127.0.0.1", 1527, "tccpingado");
+//        ConexaoInterface bd_conexao = new ConexaoJavaDbDerby("", "", "127.0.0.1", 1527, "tccpingado");
         ////
         ExchangedValueDaoInterface exv_dao;
-        exv_dao = new ExchangedValueDaoReacional(bd_conexao);
+        exv_dao = new ExchangedValueDaoReacional(conexao);
         ////
         CryptoPersonDaoInterface crp_dao;
-        crp_dao = new CryptoPersonDaoReacional(bd_conexao);
+        crp_dao = new CryptoPersonDaoReacional(conexao);
         ////
         EcontractDaoInterface ect_dao;
-        ect_dao = new EcontractDaoReacional(bd_conexao);
+        ect_dao = new EcontractDaoReacional(conexao);
 
         try{
             Statement st;
             st = conexao.getConnection().createStatement();
-            String sql = "select id, type, subType, value, econtractId, title, size, producerId, ispId, location from exchangedvalue";
+            String sql = "select id, type, subType, value, econtractId, title, size, producerId, ispId, location from exchangedvalue where id = " + id;
             ResultSet resultados = st.executeQuery(sql);
             
+	        if(resultados.getFetchSize() > 1)
+	        	throw new Exception("..:ERR:More than one ExchangedValue was found. Contact sysadmin!");
+	        
             while(resultados.next()){
                 long contentId = resultados.getLong("id");
                 String type = resultados.getString("type");

@@ -2,7 +2,12 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 import entities.values.Content;
+import resources.databases.dao.api.ExchangedValueDaoInterface;
+import resources.databases.impl.relacional.ExchangedValueDaoReacional;
+import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
 
 public class ISP extends CryptoPerson implements CSP {
 
@@ -34,13 +39,13 @@ public class ISP extends CryptoPerson implements CSP {
 	 * @see entities.CSP#listContent()
 	 */
 	public Content[] listContent() {
-	    Content list[] = new Content[this.content.size()];
+		ExchangedValueDaoInterface exv_dao = new ExchangedValueDaoReacional(ConexaoDerbyDefault.defaultConection());
+		List<Content> list = exv_dao.listContent();
+//	    Content list[] = new Content[this.content.size()];
 	    int i=0;
+	    this.content = list;
 	    
-	    for(Content cont : content)
-	        list[i++] = (Content) content;
-	    
-	    return list;
+	    return (Content[])list.toArray();
 	}
 
 
