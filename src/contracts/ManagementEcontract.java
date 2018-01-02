@@ -46,26 +46,26 @@ public class ManagementEcontract {
     }
 
     public void setStatus(int status) {
-        switch (this.status) {
-        case UNKNOWN:
-            status = 0;
+        switch (status) {
+        case 0:
+            this.status = Status.UNKNOWN;
             break;
-        case INITIATED:
-            status = 1;
+        case 1:
+            this.status = Status.INITIATED;
             break;
-        case STARTED:
-            status = 2;
+        case 2:
+            this.status = Status.STARTED;
             break;
-        case PROVISIONING:
-            status = 3;
+        case 3:
+            this.status = Status.PROVISIONING;
             break;
-        case CONCLUDED:
-            status = 4;
-        case ABORTED:
-            status = 5;
+        case 4:
+            this.status = Status.CONCLUDED;
+        case 5:
+            this.status = Status.ABORTED;
             break;
         default:
-            status = 0;
+            this.status = Status.UNKNOWN;
             break;
         }
     }
