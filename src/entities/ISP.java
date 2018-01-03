@@ -8,6 +8,8 @@ import entities.values.Content;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
 import resources.databases.impl.relacional.ExchangedValueDaoReacional;
 import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
+import software.controllers.CtrlEcontract;
+import software.controllers.CtrlExchangedValue;
 
 public class ISP extends CryptoPerson implements CSP {
 
@@ -39,21 +41,19 @@ public class ISP extends CryptoPerson implements CSP {
 	 * @see entities.CSP#listContent()
 	 */
 	public Content[] listContent() {
-		ExchangedValueDaoInterface exv_dao = new ExchangedValueDaoReacional(ConexaoDerbyDefault.defaultConection());
-		List<Content> list = exv_dao.listContent();
-//	    Content list[] = new Content[this.content.size()];
-	    int i=0;
-	    this.content = list;
-	    
-	    return (Content[])list.toArray();
+		CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
+		this.content = ctrl_exv.listContent();
+		
+	    return (Content[])content.toArray();
 	}
 
 
 	/**
 	 * @see entities.CSP#deliverContent()
 	 */
-	public void deliverContent() {
-
+	public void deliverContent(Content content, Party consumer) {
+		CtrlEcontract ctrl_ect = new CtrlEcontract();
+		ctrl_ect.newEcontract(content, content.getISP(), consumer);
 	}
 
 

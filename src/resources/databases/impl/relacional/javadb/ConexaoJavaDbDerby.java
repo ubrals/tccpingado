@@ -27,6 +27,7 @@ public class ConexaoJavaDbDerby implements ConexaoInterface {
             try {
                 Class.forName("org.apache.derby.jdbc.ClientDriver");
                 String url = "jdbc:derby://" + hostname + ":" + porta + "/" + nomeBancoDados;
+                System.out.println(url + " :: " + usuario + " :: " + senha);
                 conexao = DriverManager.getConnection(url, usuario, senha);
             }
             catch (Exception ex) {

@@ -3,7 +3,7 @@ package entities;
 import resources.HandleWallet;
 import resources.Wallet;
 
-public abstract class CryptoPerson extends Party implements HandleWallet {
+public class CryptoPerson extends Party implements HandleWallet {
 
 	public CryptoPerson(long id, String name) {
         super(id, name);

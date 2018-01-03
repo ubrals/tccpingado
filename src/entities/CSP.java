@@ -12,7 +12,7 @@ public interface CSP {
 
 	public abstract Content[] listContent();
 
-	public abstract void deliverContent();
+	public abstract void deliverContent(Content content, Party consumer);
 
 	public abstract void chargeDeliveredContent();
 

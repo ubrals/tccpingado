@@ -15,6 +15,8 @@ import resources.databases.dao.api.CryptoPersonDaoInterface;
 import resources.databases.dao.api.EcontractDaoInterface;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
 import resources.databases.impl.relacional.javadb.ConexaoJavaDbDerby;
+import software.controllers.CtrlCryptoPerson;
+import software.controllers.CtrlEcontract;
 
 public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	private ConexaoInterface conexao;
@@ -27,16 +29,11 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	public List<Content> listContent() {
         List<Content> contents;
         contents = new ArrayList<>();
-//        ConexaoInterface conexao = new ConexaoJavaDbDerby("", "", "127.0.0.1", 1527, "tccpingado");
+        
         ////
-        ExchangedValueDaoInterface exv_dao;
-        exv_dao = new ExchangedValueDaoReacional(conexao);
+        CtrlCryptoPerson ctrl_crp = new CtrlCryptoPerson();
         ////
-        CryptoPersonDaoInterface crp_dao;
-        crp_dao = new CryptoPersonDaoReacional(conexao);
-        ////
-        EcontractDaoInterface ect_dao;
-        ect_dao = new EcontractDaoReacional(conexao);
+        CtrlEcontract ctrl_ect = new CtrlEcontract();
         
         try{
             Statement st;
@@ -57,14 +54,15 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
                 
                 long ispId = resultados.getLong("ispId");
                 String location = resultados.getString("location");
+                String filename = resultados.getString("filename");
                 
                 ExchangedValue content;
-                Econtract econtract = ect_dao.findEcontractById(econtractId);
-                Producer producer = (Producer) crp_dao.findCryptoPersonById(producerId);
-                ISP isp = (ISP) crp_dao.findCryptoPersonById(ispId);
+                Econtract econtract = ctrl_ect.findEcontractById(econtractId);
+                Producer producer = (Producer) ctrl_crp.findCryptoPersonById(producerId);
+                ISP isp = (ISP) ctrl_crp.findCryptoPersonById(ispId);
                 
 //                content = new Content("video", null, ectPrdXisp, "PvsNP", 17000000l, new byte[]{ 0 }, producer, isp);
-                content = new Content(type, subType, value, econtract, title, size, new byte[]{ 0 }, producer, isp);
+                content = new Content(type, subType, value, econtract, title, size, new byte[]{ 0 }, producer, isp, location, filename);
                 contents.add((Content) content);
             }
         }
@@ -78,10 +76,6 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	public Content findByContentId(long id) {
 		Content content = (Content) null;
 		
-//        ConexaoInterface bd_conexao = new ConexaoJavaDbDerby("", "", "127.0.0.1", 1527, "tccpingado");
-        ////
-        ExchangedValueDaoInterface exv_dao;
-        exv_dao = new ExchangedValueDaoReacional(conexao);
         ////
         CryptoPersonDaoInterface crp_dao;
         crp_dao = new CryptoPersonDaoReacional(conexao);
@@ -111,13 +105,14 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
                 
                 long ispId = resultados.getLong("ispId");
                 String location = resultados.getString("location");
-                
+                String filename = resultados.getString("filename");
+
                 Econtract econtract = ect_dao.findEcontractById(econtractId);
                 Producer producer = (Producer) crp_dao.findCryptoPersonById(producerId);
                 ISP isp = (ISP) crp_dao.findCryptoPersonById(ispId);
                 
 //                content = new Content("video", null, ectPrdXisp, "PvsNP", 17000000l, new byte[]{ 0 }, producer, isp);
-                content = new Content(type, subType, value, econtract, title, size, new byte[]{ 0 }, producer, isp);
+                content = new Content(type, subType, value, econtract, title, size, new byte[]{ 0 }, producer, isp, location, filename);
             }
         }
         catch(Exception ex){
