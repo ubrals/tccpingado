@@ -1,5 +1,6 @@
 package software.controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import entities.values.Content;
@@ -8,12 +9,13 @@ import resources.databases.impl.relacional.ExchangedValueDaoReacional;
 import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
 
 public class CtrlExchangedValue implements ExchangedValueDaoInterface {
+	
 	public String makeSymLink(long contractId){
 		return (String) null;
 	}
 
 	@Override
-	public List<Content> listContent() {
+	public Collection<Content> listContent() {
 		ExchangedValueDaoInterface exv_dao = new ExchangedValueDaoReacional(ConexaoDerbyDefault.defaultConection());
 		
 		return exv_dao.listContent();

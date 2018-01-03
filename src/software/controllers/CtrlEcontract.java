@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import contracts.Econtract;
+import contracts.EnactmentEcontract;
+import contracts.JustintimeEcontract;
+import contracts.ManagementEcontract;
+import contracts.MicroEcontract;
 import entities.ISP;
 import entities.Party;
 import entities.values.Content;
@@ -20,6 +24,21 @@ public class CtrlEcontract implements EcontractDaoInterface {
         parties.add(consumer);
         econtract.setParty(parties);
         econtract.setExchangedValue(content);
+        ////
+        MicroEcontract microEcontract = new MicroEcontract(60);
+        econtract.setMicroEcontract(new MicroEcontract(60));
+        ////
+        JustintimeEcontract justintimeEcontract = new JustintimeEcontract();
+        justintimeEcontract.setTimeToStartLong(20180103210000l);
+        econtract.setJustintimeEcontract(justintimeEcontract);
+        ////
+        EnactmentEcontract enactmentEcontract = new EnactmentEcontract();
+        enactmentEcontract.setValidTrue();
+        econtract.setEnactmentEcontract(enactmentEcontract);
+        ////
+        ManagementEcontract managementEcontract = new ManagementEcontract();
+        managementEcontract.setStatus(1);
+        econtract.setManagementEcontract(managementEcontract);
 
         insertEcontract(econtract);
 		return econtract;

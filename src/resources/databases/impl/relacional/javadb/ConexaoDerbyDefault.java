@@ -4,7 +4,8 @@ import resources.databases.impl.relacional.ConexaoInterface;
 
 public class ConexaoDerbyDefault {
 	public static ConexaoInterface defaultConection(){
-		ConexaoInterface conexao = new ConexaoJavaDbDerby("app", "app", "127.0.0.1", 1527, "tccpingado");
+		ConexaoInterface conexao = new ConexaoJavaDbDerby("app", "app", "localhost", 1527, "tccpingado");
+//		ConexaoInterface conexao = new ConexaoJavaDbDerby("sys", "sys", "localhost", 1527, "tccpingado");
 		return conexao;
 	}
 }

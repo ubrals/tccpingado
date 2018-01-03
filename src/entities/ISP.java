@@ -40,11 +40,11 @@ public class ISP extends CryptoPerson implements CSP {
 	/**
 	 * @see entities.CSP#listContent()
 	 */
-	public Content[] listContent() {
+	public Collection<Content> listContent() {
 		CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
 		this.content = ctrl_exv.listContent();
 		
-	    return (Content[])content.toArray();
+	    return content;
 	}
 
 

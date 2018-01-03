@@ -4,6 +4,7 @@ package resources.databases.impl.relacional;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import contracts.Econtract;
@@ -26,7 +27,7 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	}
 
 	@Override
-	public List<Content> listContent() {
+	public Collection<Content> listContent() {
         List<Content> contents;
         contents = new ArrayList<>();
         
@@ -38,28 +39,43 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
         try{
             Statement st;
             st = conexao.getConnection().createStatement();
-            String sql = "select id, type, subType, value, econtractId, title, size, producerId, ispId, location from exchangedvalue";
+            
+//            ResultSet show = st.executeQuery("select * from sys.SYSTABLES");
+//            while(show.next()){
+//            	System.out.println(show.getString("TABLENAME"));
+//            }
+//            System.out.println(" >>" + conexao.getConnection().getMetaData().getURL() + 
+// 				   "." + conexao.getConnection().getMetaData().getUserName() + 
+// 				   "." + conexao.getConnection().getSchema() + 
+// 				   "." + conexao.getConnection().getMetaData().getIdentifierQuoteString()
+// 				   );
+
+//            String sql = "select id, type, subType, value, econtractId, title, size, producerId, ispId, location, filename from exchangedvalue";
+            String sql = "select * from exchangedvalue";
             ResultSet resultados = st.executeQuery(sql);
             
             while(resultados.next()){
-                long contentId = resultados.getLong("id");
-                String type = resultados.getString("type");
-                String subType = resultados.getString("subType");
-                String value = resultados.getString("value");
-                long econtractId = resultados.getLong("econtractId");
+                long contentId = resultados.getLong("ID");
+                String type = resultados.getString("TYPE");
+                String subType = resultados.getString("SUBTYPE");
+                String value = resultados.getString("VALUE");
+                long econtractId = resultados.getLong("ECONTRACTID");
                 
-                String title = resultados.getString("title");
-                long size = resultados.getLong("size");
-                long producerId = resultados.getLong("producerId");
+                String title = resultados.getString("TITLE");
+                long size = resultados.getLong("SIZE");
+                long producerId = resultados.getLong("PRODUCERID");
                 
-                long ispId = resultados.getLong("ispId");
-                String location = resultados.getString("location");
-                String filename = resultados.getString("filename");
+                long ispId = resultados.getLong("ISPID");
+                String location = resultados.getString("LOCATION");
+                String filename = resultados.getString("FILENAME");
                 
                 ExchangedValue content;
-                Econtract econtract = ctrl_ect.findEcontractById(econtractId);
-                Producer producer = (Producer) ctrl_crp.findCryptoPersonById(producerId);
-                ISP isp = (ISP) ctrl_crp.findCryptoPersonById(ispId);
+//                Econtract econtract = ctrl_ect.findEcontractById(econtractId);
+//                Producer producer = (Producer) ctrl_crp.findCryptoPersonById(producerId);
+//                ISP isp = (ISP) ctrl_crp.findCryptoPersonById(ispId);
+                Econtract econtract = new Econtract();
+                Producer producer = new Producer(999, "Produtor");
+                ISP isp = new ISP(888, "Internet provedor");
                 
 //                content = new Content("video", null, ectPrdXisp, "PvsNP", 17000000l, new byte[]{ 0 }, producer, isp);
                 content = new Content(type, subType, value, econtract, title, size, new byte[]{ 0 }, producer, isp, location, filename);
@@ -86,30 +102,33 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
         try{
             Statement st;
             st = conexao.getConnection().createStatement();
-            String sql = "select id, type, subType, value, econtractId, title, size, producerId, ispId, location from exchangedvalue where id = " + id;
+            String sql = "select id, type, subType, value, econtractId, title, size, producerId, ispId, location, filename from exchangedvalue where id = " + id;
             ResultSet resultados = st.executeQuery(sql);
             
 	        if(resultados.getFetchSize() > 1)
 	        	throw new Exception("..:ERR:More than one ExchangedValue was found. Contact sysadmin!");
 	        
             while(resultados.next()){
-                long contentId = resultados.getLong("id");
-                String type = resultados.getString("type");
-                String subType = resultados.getString("subType");
-                String value = resultados.getString("value");
-                long econtractId = resultados.getLong("econtractId");
+                long contentId = resultados.getLong("ID");
+                String type = resultados.getString("TYPE");
+                String subType = resultados.getString("SUBTYPE");
+                String value = resultados.getString("VALUE");
+                long econtractId = resultados.getLong("ECONTRACTID");
                 
-                String title = resultados.getString("title");
-                long size = resultados.getLong("size");
-                long producerId = resultados.getLong("producerId");
+                String title = resultados.getString("TITLE");
+                long size = resultados.getLong("SIZE");
+                long producerId = resultados.getLong("PRODUCERID");
                 
-                long ispId = resultados.getLong("ispId");
-                String location = resultados.getString("location");
-                String filename = resultados.getString("filename");
+                long ispId = resultados.getLong("ISPID");
+                String location = resultados.getString("LOCATION");
+                String filename = resultados.getString("FILENAME");
 
-                Econtract econtract = ect_dao.findEcontractById(econtractId);
-                Producer producer = (Producer) crp_dao.findCryptoPersonById(producerId);
-                ISP isp = (ISP) crp_dao.findCryptoPersonById(ispId);
+//                Econtract econtract = ect_dao.findEcontractById(econtractId);
+//                Producer producer = (Producer) crp_dao.findCryptoPersonById(producerId);
+//                ISP isp = (ISP) crp_dao.findCryptoPersonById(ispId);
+                Econtract econtract = new Econtract();
+                Producer producer = new Producer(999, "Produtor");
+                ISP isp = new ISP(888, "Internet");
                 
 //                content = new Content("video", null, ectPrdXisp, "PvsNP", 17000000l, new byte[]{ 0 }, producer, isp);
                 content = new Content(type, subType, value, econtract, title, size, new byte[]{ 0 }, producer, isp, location, filename);

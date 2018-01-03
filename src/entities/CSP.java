@@ -1,16 +1,19 @@
 package entities;
 
+import java.util.Collection;
+import java.util.List;
+
 import entities.values.Content;
 
 public interface CSP {
 
-	Content contents = null;
+	Collection<Content> contents = null;
 
 	public abstract void publishContent(Content content);
 
 	public abstract void receiveContent(Content content);
 
-	public abstract Content[] listContent();
+	public abstract Collection<Content> listContent();
 
 	public abstract void deliverContent(Content content, Party consumer);
 

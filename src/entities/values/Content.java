@@ -6,7 +6,9 @@ import contracts.Econtract;
 import entities.Customer;
 
 public class Content extends Product {
-
+	
+	private long id;
+	
 	private String title;
 
 	private long size;
@@ -33,7 +35,15 @@ public class Content extends Product {
         this.setFilename(filename);
     }
 
-    public String getTitle() {
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
         return title;
     }
 
