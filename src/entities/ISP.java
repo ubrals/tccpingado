@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import contracts.Econtract;
 import entities.values.Content;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
 import resources.databases.impl.relacional.ExchangedValueDaoReacional;
@@ -53,7 +54,14 @@ public class ISP extends CryptoPerson implements CSP {
 	 */
 	public void deliverContent(Content content, Party consumer) {
 		CtrlEcontract ctrl_ect = new CtrlEcontract();
-		ctrl_ect.newEcontract(content, content.getISP(), consumer);
+		CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
+		Econtract econtract = ctrl_ect.newEcontract(content, content.getISP(), consumer);
+        String contract_file = ctrl_exv.makeSymLink(econtract.getId(),
+                                                    ((Content)econtract.getExchangedValue()).getLocation(),
+                                                    ((Content)econtract.getExchangedValue()).getFilename());
+        System.out.println(contract_file);
+        String url = ctrl_exv.getURL("http://localhost", "/", contract_file);
+        System.out.println(url);
 	}
 
 

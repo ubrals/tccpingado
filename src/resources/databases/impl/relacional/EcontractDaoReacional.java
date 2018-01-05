@@ -104,60 +104,35 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
 
 	@Override
 	public void insertEcontract(Econtract econtract) {
-        ExchangedValueDaoInterface exv_dao;
-        exv_dao = new ExchangedValueDaoReacional(conexao);
-        ////
-        CryptoPersonDaoInterface crp_dao;
-        crp_dao = new CryptoPersonDaoReacional(conexao);
 
 		try{
 	        Statement st;
 	        st = conexao.getConnection().createStatement();
 	        String sql = "insert into econtract values (";
 	        sql += econtract.getId() + ", ";
-        System.out.println(econtract.getId() + ", ");
             sql += ((Content)econtract.getExchangedValue()).getId() + ", ";
-        System.out.println(((Content)econtract.getExchangedValue()).getId() + ", ");
             {
 	        	for(Party party : econtract.getParty()){
                     sql += ((CryptoPerson)party).getId() + ", ";
-        System.out.println(((CryptoPerson)party).getId() + ", ");
 	        	}
 	        }
             sql += econtract.getMicroEcontract().getFraction() + ", ";
-        System.out.println(econtract.getMicroEcontract().getFraction() + ", ");
             sql += "'" + econtract.getJustintimeEcontract().getTimeToStartLong() + "', ";
-        System.out.println("'" + econtract.getJustintimeEcontract().getTimeToStartLong() + "', ");
             sql += econtract.getEnactmentEcontract().isValidInt() + ", ";
-        System.out.println(econtract.getEnactmentEcontract().isValidInt() + ", ");
             sql += econtract.getManagementEcontract().getStatus() + ")";
-        System.out.println(econtract.getManagementEcontract().getStatus() + ")");
             System.out.println(sql);
 	        
-	        ResultSet resultados = null;
-	        if(st.execute(sql)){
-	            System.out.println("Feito");
-//	        	resultados = st.getResultSet();
-//	        	while(resultados.next()){
-//    	        	for(int i=1; i<resultados.getMetaData().getColumnCount(); i++){
-//    	        	    System.out.println(resultados.getString(i));
-//    	        	}
-//	        	}
+            try {
+                st.execute(sql);
+                if(st.getUpdateCount() == 1){
+                    System.out.println("Feito");
+                }
+                else{
+                    System.out.println("..:WRN:There has been inserted" + st.getUpdateCount() + "econtracts. Please contact sysadmin");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
 	        }
-	        
-//	        if(resultados.getFetchSize() > 1)
-//	        	throw new Exception("..:ERR:More than one Econtract was found. Contact sysadmin!");
-	        
-//	        while(resultados.next()){
-//	            long econtractId = resultados.getLong("id");
-//	            long contentId = resultados.getLong("contentId");
-//	            long partyId1 = resultados.getLong("partyId1");
-//	            long partyId2 = resultados.getLong("partyId2");
-//	            long microFraction = resultados.getLong("microFraction");
-//	            long jitTimeToStart = resultados.getLong("jitTimeToStart");
-//	            int enactmentValid = resultados.getInt("enactmentValid");
-//	            int managementStatus = resultados.getInt("managementStatus");
-//	        }
         }
 	    catch(Exception ex){
 	        ex.printStackTrace();

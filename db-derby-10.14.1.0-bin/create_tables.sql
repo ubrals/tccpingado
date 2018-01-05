@@ -3,10 +3,11 @@ connect 'jdbc:derby:tccpingado';
 connect 'jdbc:derby:tccpingado;user=app;password=app';
 connect 'jdbc:derby:tccpingado;user=sys;password=sys';
 connect 'jdbc:derby://localhost:1527/tccpingado;create=true';
+
 connect 'jdbc:derby://localhost:1527/tccpingado';
 
 
-drop table "cryptoperson"
+drop table cryptoperson
 create table CRYPTOPERSON (
     ID int primary key,
     NAME varchar(512),
@@ -21,9 +22,9 @@ insert into cryptoperson (id, name, wallet, role) values (29172, 'Andre Miguel',
 insert into cryptoperson values (10000, 'Mack Content Service Provider', 'a4e3dc902ea0b53', 'ISP'), (18374, 'Computer Science Expert', '9e948dc3a4e9ab5', 'Producer'), (29172, 'Andre Miguel', 'cd832ae95017e5d', 'Customer');
 
 -----------------------------------
-drop table "econtract"
+drop table econtract
 create table ECONTRACT (
-    ID int primary key,
+    ID bigint primary key,
     CONTENTID int,
     PARTYID1 int,
     PARTYID2 int,
@@ -39,19 +40,23 @@ select id, contentid, partyid1, partyid2, microfraction, jittimetostart, enactme
                                                                   MICROFRACTION,    
                                                                       JITTIMETOSTART, ENACTMENTVALID,    
                                                                                          MANAGEMENTSTATUS
+select * from econtract;
 insert into econtract values (102938,       918273, 18374, 10000, 60, '201801022345', 1, 1);
-insert into econtract values (231562075273, 0,      888,   29172, 60, '0',            0, 0)
+insert into econtract values (231562075273, 0,      888,   29172, 60, '0',            0, 0);
+create table TMP (
+    ID number primary key
+);
 
 -----------------------------------
-drop table "exchangedvalue"
+drop table exchangedvalue
 create table EXCHANGEDVALUE (
-    ID int primary key,
+    ID bigint primary key,
     TYPE varchar(128),
     SUBTYPE varchar(128),
     VALUE varchar(128),
     ECONTRACTID int,
     TITLE varchar(512),
-    SIZE int,
+    SIZE bigint,
     PRODUCERID int,
     ISPID int,
     LOCATION varchar(512),

@@ -12,12 +12,14 @@ import entities.ISP;
 import entities.Party;
 import entities.values.Content;
 import resources.databases.dao.api.EcontractDaoInterface;
+import resources.databases.dao.api.ExchangedValueDaoInterface;
 import resources.databases.impl.relacional.EcontractDaoReacional;
 import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
 
 public class CtrlEcontract implements EcontractDaoInterface {
 	
 	public Econtract newEcontract(Content content, Party provider, Party consumer){
+	    ExchangedValueDaoInterface ctrl_exv = new CtrlExchangedValue();
 		Econtract econtract = new Econtract();
         Collection<Party> parties = new ArrayList<>();
         parties.add(provider);
@@ -26,7 +28,7 @@ public class CtrlEcontract implements EcontractDaoInterface {
         econtract.setExchangedValue(content);
         ////
         MicroEcontract microEcontract = new MicroEcontract(60);
-        econtract.setMicroEcontract(new MicroEcontract(60));
+        econtract.setMicroEcontract(microEcontract);
         ////
         JustintimeEcontract justintimeEcontract = new JustintimeEcontract();
         justintimeEcontract.setTimeToStartLong(20180103210000l);
@@ -41,6 +43,7 @@ public class CtrlEcontract implements EcontractDaoInterface {
         econtract.setManagementEcontract(managementEcontract);
 
         insertEcontract(econtract);
+        
 		return econtract;
 	}
 
