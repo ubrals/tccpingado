@@ -20,13 +20,11 @@ public class Econtract {
 
     private EnactmentEcontract enactmentEcontract;
 
-    private Collection<Party> party;
+    private Collection<Party> parties;
 
     private ExchangedValue exchangedValue;
 
     private Framework framework;
-
-    private Transaction transaction;
 
     public Econtract() {
         setId();
@@ -48,11 +46,11 @@ public class Econtract {
     }
 
     public Collection<Party> getParty() {
-        return party;
+        return parties;
     }
 
     public void setParty(Collection<Party> party) {
-        this.party = party;
+        this.parties = party;
     }
 
     public ExchangedValue getExchangedValue() {

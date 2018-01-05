@@ -3,6 +3,7 @@ package entities;
 import java.util.Collection;
 import java.util.List;
 
+import contracts.Econtract;
 import entities.values.Content;
 
 public interface CSP {
@@ -17,9 +18,9 @@ public interface CSP {
 
 	public abstract void deliverContent(Content content, Party consumer);
 
-	public abstract void chargeDeliveredContent();
+	public abstract void chargeDeliveredContent(Econtract econtract);
 
-	public abstract void payDeliveredContent();
+	public abstract void payDeliveredContent(Econtract econtract);
 
 	public abstract void negotiatePrice();
 

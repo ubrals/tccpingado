@@ -1,17 +1,10 @@
 package entities;
 
-import contracts.Econtract;
-import java.util.Collection;
-
 public abstract class Party {
 
     private long id;
 
     private String name;
-
-    private Econtract econtract;
-
-    private Collection<Transaction> transaction;
 
     public Party(long id, String name) {
         this.id = id;

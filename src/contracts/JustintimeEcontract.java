@@ -9,8 +9,6 @@ public class JustintimeEcontract {
     private SimpleDateFormat timeToStartSdf;
     private long timeToStartLong;
 
-    private Econtract econtract;
-
     public JustintimeEcontract() {
         this.timeToStart = new Date();
     }

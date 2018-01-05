@@ -4,18 +4,22 @@ import pricing.categories.UsageDependent;
 
 public class Time extends UsageDependent {
 
-	private long duration;
+	private TimeShares duration;
 
-	public Time(long duration) {
-
+	public Time(TimeShares duration) {
+	    this.duration = duration;
 	}
 
-	public long getDuration() {
-	    return duration;
-	}
+    public TimeShares getDuration() {
+        return duration;
+    }
 
-	public void setDuration(long duration) {
-	    this.duration=duration;
+    public String getDurationLabel() {
+        return duration.toString();
+    }
+
+	public void setDuration(TimeShares duration) {
+	    this.duration = duration;
 	}
 
 }

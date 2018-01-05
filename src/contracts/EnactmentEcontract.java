@@ -4,8 +4,6 @@ public class EnactmentEcontract {
 
     private boolean valid;
 
-    private Econtract econtract;
-
     public EnactmentEcontract() {
         this.valid = false;
     }

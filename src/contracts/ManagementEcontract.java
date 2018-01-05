@@ -4,8 +4,6 @@ public class ManagementEcontract {
 
     private Status status;
 
-    private Econtract econtract;
-
     public ManagementEcontract() {
         this.status = Status.UNKNOWN;
     }

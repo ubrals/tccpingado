@@ -5,24 +5,19 @@ import resources.Wallet;
 
 public class CryptoPerson extends Party implements HandleWallet {
 
-	public CryptoPerson(long id, String name) {
-        super(id, name);
-        // TODO Auto-generated constructor stub
-    }
-
-
     private Wallet wallet;
 
+	public CryptoPerson(long id, String name) {
+        super(id, name);
+    }
 
 	public Wallet getWallet() {
         return wallet;
     }
 
-
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
-
 
     /**
 	 * @see resources.HandleWallet#getBalance()
@@ -52,7 +47,7 @@ public class CryptoPerson extends Party implements HandleWallet {
 	 * @see resources.HandleWallet#setPassword(java.lang.String, java.lang.String)
 	 */
 	public void setPassword(String oldPassword, String newPassword) {
-	    
+	    this.wallet.setPassword(oldPassword, newPassword);
 	}
 
 

@@ -68,7 +68,7 @@ public class ISP extends CryptoPerson implements CSP {
 	/**
 	 * @see entities.CSP#chargeDeliveredContent()
 	 */
-	public void chargeDeliveredContent() {
+	public void chargeDeliveredContent(Econtract econtract) {
 
 	}
 
@@ -76,7 +76,7 @@ public class ISP extends CryptoPerson implements CSP {
 	/**
 	 * @see entities.CSP#payDeliveredContent()
 	 */
-	public void payDeliveredContent() {
+	public void payDeliveredContent(Econtract econtract) {
 
 	}
 
