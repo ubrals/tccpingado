@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import contracts.Econtract;
+import contracts.EcontractDirector;
 import contracts.EnactmentEcontract;
 import contracts.JustintimeEcontract;
 import contracts.ManagementEcontract;
@@ -11,6 +12,7 @@ import contracts.MicroEcontract;
 import entities.ISP;
 import entities.Party;
 import entities.values.Content;
+import pricing.Framework;
 import resources.databases.dao.api.EcontractDaoInterface;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
 import resources.databases.impl.relacional.EcontractDaoReacional;
@@ -18,30 +20,12 @@ import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
 
 public class CtrlEcontract implements EcontractDaoInterface {
 	
-	public Econtract newEcontract(Content content, Party provider, Party consumer){
-	    ExchangedValueDaoInterface ctrl_exv = new CtrlExchangedValue();
-		Econtract econtract = new Econtract();
-        Collection<Party> parties = new ArrayList<>();
-        parties.add(provider);
-        parties.add(consumer);
-        econtract.setParty(parties);
-        econtract.setExchangedValue(content);
-        ////
-        MicroEcontract microEcontract = new MicroEcontract(60);
-        econtract.setMicroEcontract(microEcontract);
-        ////
-        JustintimeEcontract justintimeEcontract = new JustintimeEcontract();
-        justintimeEcontract.setTimeToStartLong(20180103210000l);
-        econtract.setJustintimeEcontract(justintimeEcontract);
-        ////
-        EnactmentEcontract enactmentEcontract = new EnactmentEcontract();
-        enactmentEcontract.setValidTrue();
-        econtract.setEnactmentEcontract(enactmentEcontract);
-        ////
-        ManagementEcontract managementEcontract = new ManagementEcontract();
-        managementEcontract.setStatus(1);
-        econtract.setManagementEcontract(managementEcontract);
-
+	public Econtract newEcontract(Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int fractionMicro) throws Exception{
+	    EcontractDirector ec_director = new EcontractDirector();
+	    ec_director.prepare();
+	    ec_director.build(content, provider, consumer, framework, frameworkValue, fractionMicro);
+		Econtract econtract = ec_director.getObject();
+		
         insertEcontract(econtract);
         
 		return econtract;

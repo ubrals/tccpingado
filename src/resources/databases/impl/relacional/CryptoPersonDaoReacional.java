@@ -31,22 +31,7 @@ public class CryptoPersonDaoReacional implements CryptoPersonDaoInterface {
 	            String name = resultados.getString("name");
 	            String wallet = resultados.getString("wallet");
 	            String role = resultados.getString("role");
-//	            switch (role.toUpperCase()) {
-//				case "ISP":
-//					cryptoPerson = new ISP(cryptoPersonId, name);
-//					break;
-//				case "PRODUCER":
-//					cryptoPerson = new Producer(cryptoPersonId, name);
-//					break;
-//				case "CUSTOMER":
-//					cryptoPerson = new Customer(cryptoPersonId, name);
-//					break;
-//				default:
-//					cryptoPerson = (CryptoPerson) null;
-//					break;
-//				}
 	            cryptoPerson = new CryptoPerson(cryptoPersonId, name);
-//	            cryptoPerson.setWallet(wallet);
 	        }
         }
 	    catch(Exception ex){

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import contracts.Econtract;
+import contracts.EcontractDirector;
 import contracts.EnactmentEcontract;
 import contracts.JustintimeEcontract;
 import contracts.ManagementEcontract;
@@ -21,6 +22,8 @@ import entities.values.Product;
 import resources.databases.dao.api.CryptoPersonDaoInterface;
 import resources.databases.dao.api.EcontractDaoInterface;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
+import software.controllers.CtrlCryptoPerson;
+import software.controllers.CtrlExchangedValue;
 
 public class EcontractDaoReacional implements EcontractDaoInterface {
 	private ConexaoInterface conexao;
@@ -32,13 +35,14 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
 
 	@Override
 	public Econtract findEcontractById(long id) {
+	    EcontractDirector ec_director = new EcontractDirector();
 		Econtract econtract = (Econtract) null;
 		
-        ExchangedValueDaoInterface exv_dao;
-        exv_dao = new ExchangedValueDaoReacional(conexao);
+        CtrlExchangedValue ctrl_exv;
+        ctrl_exv = new CtrlExchangedValue();
         ////
-        CryptoPersonDaoInterface crp_dao;
-        crp_dao = new CryptoPersonDaoReacional(conexao);
+        CtrlCryptoPerson ctrl_crp;
+        ctrl_crp = new CtrlCryptoPerson();
 
 		try{
 	        Statement st;
@@ -59,16 +63,18 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
 	            int enactmentValid = resultados.getInt("enactmentValid");
 	            int managementStatus = resultados.getInt("managementStatus");
 	            
+	            ec_director.prepare();
+	            ec_director.build(content, provider, consumer, framework, frameworkValue, fractionMicro);
 	            econtract = new Econtract();
 	            econtract.setId(econtractId);
 	            {
-		            ExchangedValue exchangedValue = (Content)exv_dao.findByContentId(contentId);
+		            ExchangedValue exchangedValue = (Content)ctrl_exv.findByContentId(contentId);
 		            econtract.setExchangedValue(exchangedValue);
 	            }
 	            {
 		            Collection<Party> parties = new ArrayList<>();
-		            Party party1 = crp_dao.findCryptoPersonById(partyId1);
-		            Party party2 = crp_dao.findCryptoPersonById(partyId2);
+		            Party party1 = ctrl_crp.findCryptoPersonById(partyId1);
+		            Party party2 = ctrl_crp.findCryptoPersonById(partyId2);
 		            parties.add(party1);
 		            parties.add(party2);
 		            econtract.setParty(parties);

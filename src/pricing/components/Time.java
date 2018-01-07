@@ -4,22 +4,33 @@ import pricing.categories.UsageDependent;
 
 public class Time extends UsageDependent {
 
-	private TimeShares duration;
+	private TimeShares share;
 
-	public Time(TimeShares duration) {
-	    this.duration = duration;
+	public Time(TimeShares share) {
+	    this.share = share;
 	}
 
-    public TimeShares getDuration() {
-        return duration;
+    public TimeShares getShare() {
+        return share;
     }
 
-    public String getDurationLabel() {
-        return duration.toString();
+    public String getShareLabel() {
+        return share.toString();
     }
 
-	public void setDuration(TimeShares duration) {
-	    this.duration = duration;
+	public void setShare(TimeShares share) {
+	    this.share = share;
+	}
+	
+	public void setShare(String share) throws Exception{
+	    switch (share.toUpperCase()) {
+        case "DAY": this.share = TimeShares.DAY; break;
+        case "HOUR": this.share = TimeShares.HOUR; break;
+        case "MINUTE": this.share = TimeShares.MINUTE; break;
+        case "SECOND": this.share = TimeShares.SECOND; break;
+        case "MILLISECOND": this.share = TimeShares.MILLISECOND; break;
+        default: throw new Exception("..:ERR:Time share is not allowed");
+        }
 	}
 
 }

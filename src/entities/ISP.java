@@ -6,6 +6,9 @@ import java.util.List;
 
 import contracts.Econtract;
 import entities.values.Content;
+import pricing.Framework;
+import pricing.components.Time;
+import pricing.components.TimeShares;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
 import resources.databases.impl.relacional.ExchangedValueDaoReacional;
 import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
@@ -50,12 +53,14 @@ public class ISP extends CryptoPerson implements CSP {
 
 
 	/**
+	 * @throws Exception 
 	 * @see entities.CSP#deliverContent()
 	 */
-	public void deliverContent(Content content, Party consumer) {
+	public void deliverContent(Content content, Party consumer) throws Exception {
 		CtrlEcontract ctrl_ect = new CtrlEcontract();
+		Framework framework = new Time(TimeShares.SECOND);
 		CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
-		Econtract econtract = ctrl_ect.newEcontract(content, content.getISP(), consumer);
+		Econtract econtract = ctrl_ect.newEcontract(content, content.getISP(), consumer, framework, ((Time)framework).getShareLabel(), 60);
         String contract_file = ctrl_exv.makeSymLink(econtract.getId(),
                                                     ((Content)econtract.getExchangedValue()).getLocation(),
                                                     ((Content)econtract.getExchangedValue()).getFilename());

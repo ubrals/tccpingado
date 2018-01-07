@@ -9,31 +9,31 @@ public class JustintimeEcontract {
     private SimpleDateFormat timeToStartSdf;
     private long timeToStartLong;
 
-    public JustintimeEcontract() {
+    protected JustintimeEcontract() {
         this.timeToStart = new Date();
     }
 
-    public Date getTimeToStart() {
+    protected Date getTimeToStart() {
         return timeToStart;
     }
 
-    public void setTimeToStart(Date timeToStart) {
+    protected void setTimeToStart(Date timeToStart) {
         this.timeToStart = timeToStart;
     }
 
-    public SimpleDateFormat getTimeToStartSdf() {
+    protected SimpleDateFormat getTimeToStartSdf() {
         return timeToStartSdf;
     }
 
-    public void setTimeToStartSdf(SimpleDateFormat timeToStartSdf) {
+    protected void setTimeToStartSdf(SimpleDateFormat timeToStartSdf) {
         this.timeToStartSdf = timeToStartSdf;
     }
 
-    public long getTimeToStartLong() {
+    protected long getTimeToStartLong() {
         return timeToStartLong;
     }
 
-    public void setTimeToStartLong(long timeToStartLong) {
+    protected void setTimeToStartLong(long timeToStartLong) {
         this.timeToStartLong = timeToStartLong;
     }
 

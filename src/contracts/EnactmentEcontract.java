@@ -4,25 +4,25 @@ public class EnactmentEcontract {
 
     private boolean valid;
 
-    public EnactmentEcontract() {
+    protected EnactmentEcontract() {
         this.valid = false;
     }
 
-    public boolean isValid() {
+    protected boolean isValid() {
         return valid;
     }
 
-    public int isValidInt() {
+    protected int isValidInt() {
         if(valid == true)
             return 1;
         return 0;
     }
 
-    public void setValidFalse() {
+    protected void setValidFalse() {
         this.valid = false;
     }
 
-    public void setValidTrue() {
+    protected void setValidTrue() {
         this.valid = true;
     }
 

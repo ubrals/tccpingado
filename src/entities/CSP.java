@@ -16,7 +16,7 @@ public interface CSP {
 
 	public abstract Collection<Content> listContent();
 
-	public abstract void deliverContent(Content content, Party consumer);
+	public abstract void deliverContent(Content content, Party consumer) throws Exception;
 
 	public abstract void chargeDeliveredContent(Econtract econtract);
 

@@ -109,7 +109,7 @@ public class CriaEntidades {
         ManagementEcontract ectManagement = new ManagementEcontract();
         ectManagement.setStatus(Status.INITIATED);
         // ---
-        MicroEcontract ectMicro = new MicroEcontract(60l);
+        MicroEcontract ectMicro = new MicroEcontract(60);
         // ---
         ectPrdXisp.setEnactmentEcontract(ectEnactment);
         ectPrdXisp.setManagementEcontract(ectManagement);
@@ -138,7 +138,7 @@ public class CriaEntidades {
         ManagementEcontract ectManagement = new ManagementEcontract();
         ectManagement.setStatus(Status.INITIATED);
         // ---
-        MicroEcontract ectMicro = new MicroEcontract(60l);
+        MicroEcontract ectMicro = new MicroEcontract(60);
         // ---
         JustintimeEcontract ectJust = new JustintimeEcontract();
         long ts = System.currentTimeMillis();

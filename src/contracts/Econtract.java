@@ -26,7 +26,7 @@ public class Econtract {
 
     private Framework framework;
 
-    public Econtract() {
+    protected Econtract() {
         setId();
     }
 
@@ -41,7 +41,7 @@ public class Econtract {
         this.id = id;
     }
 
-    public void setId(long id) {
+    protected void setId(long id) {
         this.id = id;
     }
 
@@ -49,7 +49,7 @@ public class Econtract {
         return parties;
     }
 
-    public void setParty(Collection<Party> party) {
+    protected void setParty(Collection<Party> party) {
         this.parties = party;
     }
 
@@ -57,7 +57,7 @@ public class Econtract {
         return exchangedValue;
     }
 
-    public void setExchangedValue(ExchangedValue exchangedValue) {
+    protected void setExchangedValue(ExchangedValue exchangedValue) {
         this.exchangedValue = exchangedValue;
     }
 
@@ -65,7 +65,7 @@ public class Econtract {
         return null;
     }
 
-    public void addTransaction(Transaction transaction) {
+    protected void addTransaction(Transaction transaction) {
         transactions.add(transaction);
     }
 
@@ -73,7 +73,7 @@ public class Econtract {
         return microEcontract;
     }
 
-    public void setMicroEcontract(MicroEcontract microEcontract) {
+    protected void setMicroEcontract(MicroEcontract microEcontract) {
         this.microEcontract = microEcontract;
     }
 
@@ -81,7 +81,7 @@ public class Econtract {
         return justintimeEcontract;
     }
 
-    public void setJustintimeEcontract(JustintimeEcontract justintimeEcontract) {
+    protected void setJustintimeEcontract(JustintimeEcontract justintimeEcontract) {
         this.justintimeEcontract = justintimeEcontract;
     }
 
@@ -89,7 +89,7 @@ public class Econtract {
         return enactmentEcontract;
     }
 
-    public void setEnactmentEcontract(EnactmentEcontract enactmentEcontract) {
+    protected void setEnactmentEcontract(EnactmentEcontract enactmentEcontract) {
         this.enactmentEcontract = enactmentEcontract;
     }
 
@@ -97,8 +97,16 @@ public class Econtract {
         return managementEcontract;
     }
 
-    public void setManagementEcontract(ManagementEcontract managementEcontract) {
+    protected void setManagementEcontract(ManagementEcontract managementEcontract) {
         this.managementEcontract = managementEcontract;
+    }
+
+    public Framework getFramework() {
+        return framework;
+    }
+
+    protected void setFramework(Framework framework) {
+        this.framework = framework;
     }
 
 }

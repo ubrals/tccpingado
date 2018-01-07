@@ -2,17 +2,17 @@ package contracts;
 
 public class MicroEcontract {
 
-    private long fraction;
+    private int fraction;
 
-    public MicroEcontract(long fraction) {
+    protected MicroEcontract(int fraction) {
         this.fraction = fraction;
     }
 
-    public long getFraction() {
+    protected long getFraction() {
         return fraction;
     }
 
-    public void setFraction(long fraction) {
+    protected void setFraction(int fraction) {
         this.fraction = fraction;
     }
 

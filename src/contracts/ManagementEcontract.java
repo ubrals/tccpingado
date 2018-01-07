@@ -4,15 +4,15 @@ public class ManagementEcontract {
 
     private Status status;
 
-    public ManagementEcontract() {
+    protected ManagementEcontract() {
         this.status = Status.UNKNOWN;
     }
 
-    public String getStatusLabel(){
+    protected String getStatusLabel(){
         return this.status.toString();
     }
     
-    public int getStatus() {
+    protected int getStatus() {
         int status;
         switch (this.status) {
         case UNKNOWN:
@@ -39,11 +39,11 @@ public class ManagementEcontract {
         return status;
     }
 
-    public void setStatus(Status status) {
+    protected void setStatus(Status status) {
         this.status = status;
     }
 
-    public void setStatus(int status) {
+    protected void setStatus(int status) {
         switch (status) {
         case 0:
             this.status = Status.UNKNOWN;
