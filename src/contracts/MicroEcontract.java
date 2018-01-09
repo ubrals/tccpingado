@@ -8,7 +8,7 @@ public class MicroEcontract {
         this.fraction = fraction;
     }
 
-    protected long getFraction() {
+    public int getFraction() {
         return fraction;
     }
 

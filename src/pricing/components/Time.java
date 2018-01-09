@@ -2,13 +2,27 @@ package pricing.components;
 
 import pricing.categories.UsageDependent;
 
-public class Time extends UsageDependent {
+public class Time extends UsageDependent implements Component {
 
+    private String label = "TIME";
 	private TimeShares share;
 
-	public Time(TimeShares share) {
-	    this.share = share;
-	}
+    public Time(TimeShares share) {
+        this.share = share;
+    }
+
+    public Time(String share) {
+        try {
+            setShare(share);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public String getLabel(){
+        return this.label;
+    }
 
     public TimeShares getShare() {
         return share;
@@ -31,6 +45,11 @@ public class Time extends UsageDependent {
         case "MILLISECOND": this.share = TimeShares.MILLISECOND; break;
         default: throw new Exception("..:ERR:Time share is not allowed");
         }
+	}
+	
+	@Override
+	public String getValue(){
+	    return getShareLabel();
 	}
 
 }

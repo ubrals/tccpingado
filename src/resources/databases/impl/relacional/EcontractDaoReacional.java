@@ -19,10 +19,15 @@ import entities.Producer;
 import entities.values.Content;
 import entities.values.ExchangedValue;
 import entities.values.Product;
+import pricing.Framework;
+import pricing.components.Component;
+import pricing.components.Time;
+import pricing.components.TimeShares;
 import resources.databases.dao.api.CryptoPersonDaoInterface;
 import resources.databases.dao.api.EcontractDaoInterface;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
 import software.controllers.CtrlCryptoPerson;
+import software.controllers.CtrlEcontract;
 import software.controllers.CtrlExchangedValue;
 
 public class EcontractDaoReacional implements EcontractDaoInterface {
@@ -38,68 +43,46 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
 	    EcontractDirector ec_director = new EcontractDirector();
 		Econtract econtract = (Econtract) null;
 		
+		///
         CtrlExchangedValue ctrl_exv;
         ctrl_exv = new CtrlExchangedValue();
         ////
         CtrlCryptoPerson ctrl_crp;
         ctrl_crp = new CtrlCryptoPerson();
-
+        
 		try{
 	        Statement st;
 	        st = conexao.getConnection().createStatement();
-	        String sql = "select id, contentId, partyId1, partyId2, microFraction, jitTimeToStart, enactmentValid, managementStatus from econtract where id = " + id;
+	        String sql = "select ID, CONTENTID, PARTYID1, PARTYID2, MICROFRACTION, JITTIMETOSTART, ENACTMENTVALID, MANAGEMENTSTATUS, FRAMEWORK, FRAMEWORK_VALUE from econtract where ID = " + id;
 	        ResultSet resultados = st.executeQuery(sql);
 	        
 	        if(resultados.getFetchSize() > 1)
 	        	throw new Exception("..:ERR:More than one Econtract was found. Contact sysadmin!");
 	        
 	        while(resultados.next()){
-	            long econtractId = resultados.getLong("id");
-	            long contentId = resultados.getLong("contentId");
-	            long partyId1 = resultados.getLong("partyId1");
-	            long partyId2 = resultados.getLong("partyId2");
-	            long microFraction = resultados.getLong("microFraction");
-	            long jitTimeToStart = resultados.getLong("jitTimeToStart");
-	            int enactmentValid = resultados.getInt("enactmentValid");
-	            int managementStatus = resultados.getInt("managementStatus");
+	            long econtractId = resultados.getLong("ID");
+	            long contentId = resultados.getLong("CONTENTID");
+	            long partyId1 = resultados.getLong("PARTYID1");
+	            long partyId2 = resultados.getLong("PARTYID2");
+	            int microFraction = resultados.getInt("MICROFRACTION");
+	            long jitTimeToStart = resultados.getLong("JITTIMETOSTART");
+	            int enactmentValid = resultados.getInt("ENACTMENTVALID");
+	            int managementStatus = resultados.getInt("MANAGEMENTSTATUS");
+	            String frameworkComponent = resultados.getString("FRAMEWORK");
+	            String frameworkValue = resultados.getString("FRAMEWORK_VALUE");
+	            
+	            Content content = ctrl_exv.findByContentId(contentId);
+                Party provider = ctrl_crp.findCryptoPersonById(partyId1);
+                Party consumer = ctrl_crp.findCryptoPersonById(partyId2);
+                
+                Framework framework = null;
+                    switch(frameworkComponent.toUpperCase()){
+                        case "TIME" : framework = new Time(frameworkValue.toUpperCase());
+                    }
 	            
 	            ec_director.prepare();
-	            ec_director.build(content, provider, consumer, framework, frameworkValue, fractionMicro);
-	            econtract = new Econtract();
-	            econtract.setId(econtractId);
-	            {
-		            ExchangedValue exchangedValue = (Content)ctrl_exv.findByContentId(contentId);
-		            econtract.setExchangedValue(exchangedValue);
-	            }
-	            {
-		            Collection<Party> parties = new ArrayList<>();
-		            Party party1 = ctrl_crp.findCryptoPersonById(partyId1);
-		            Party party2 = ctrl_crp.findCryptoPersonById(partyId2);
-		            parties.add(party1);
-		            parties.add(party2);
-		            econtract.setParty(parties);
-	            }
-	            {
-	            	econtract.setMicroEcontract(new MicroEcontract(microFraction));
-	            }
-	            {
-	            	JustintimeEcontract justintimeEcontract = new JustintimeEcontract();
-	            	justintimeEcontract.setTimeToStartLong(jitTimeToStart);
-	            	econtract.setJustintimeEcontract(justintimeEcontract);
-	            }
-	            {
-	            	EnactmentEcontract enactmentEcontract = new EnactmentEcontract();
-	            	if(enactmentValid == 1)
-	            		enactmentEcontract.setValidTrue();
-	            	else
-	            		enactmentEcontract.setValidFalse();
-	            	econtract.setEnactmentEcontract(enactmentEcontract);
-	            }
-	            {
-	            	ManagementEcontract managementEcontract = new ManagementEcontract();
-	            	managementEcontract.setStatus(managementStatus);
-	            	econtract.setManagementEcontract(managementEcontract);
-	            }
+	            ec_director.buildExistentEcontract(econtractId, content, provider, consumer, framework, frameworkValue, microFraction, jitTimeToStart, enactmentValid, managementStatus);
+	            econtract = ec_director.getObject();
 	        }
         }
 	    catch(Exception ex){
@@ -125,7 +108,9 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
             sql += econtract.getMicroEcontract().getFraction() + ", ";
             sql += "'" + econtract.getJustintimeEcontract().getTimeToStartLong() + "', ";
             sql += econtract.getEnactmentEcontract().isValidInt() + ", ";
-            sql += econtract.getManagementEcontract().getStatus() + ")";
+            sql += econtract.getManagementEcontract().getStatus() + ", ";
+            sql += "'" + ((Component)econtract.getFramework()).getLabel() + "', ";
+            sql += "'" + ((Component)econtract.getFramework()).getValue() + "')";
             System.out.println(sql);
 	        
             try {

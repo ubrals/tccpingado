@@ -13,7 +13,7 @@ public class JustintimeEcontract {
         this.timeToStart = new Date();
     }
 
-    protected Date getTimeToStart() {
+    public Date getTimeToStart() {
         return timeToStart;
     }
 
@@ -21,7 +21,7 @@ public class JustintimeEcontract {
         this.timeToStart = timeToStart;
     }
 
-    protected SimpleDateFormat getTimeToStartSdf() {
+    public SimpleDateFormat getTimeToStartSdf() {
         return timeToStartSdf;
     }
 
@@ -29,7 +29,7 @@ public class JustintimeEcontract {
         this.timeToStartSdf = timeToStartSdf;
     }
 
-    protected long getTimeToStartLong() {
+    public long getTimeToStartLong() {
         return timeToStartLong;
     }
 

@@ -2,6 +2,7 @@ package entities.values;
 
 import entities.Producer;
 import entities.ISP;
+import entities.Party;
 import contracts.Econtract;
 import entities.Customer;
 
@@ -15,16 +16,18 @@ public class Content extends Product {
 
 	private byte content[];
 
-	private Producer producer;
+//    private Producer producer;
+    private Party producer;
 
-	private ISP isp;
+//    private ISP isp;
+    private Party isp;
 	
 	private String location;
 	
 	private String filename;
 
     public Content(String type, String subType, String value, Econtract econtract, String title, long size, byte content[],
-            Producer producer, ISP isp, String location, String filename) {
+            Party producer, Party isp, String location, String filename) {
         super(type, subType, value, econtract);
         this.title = title;
         this.size = size;
@@ -67,7 +70,7 @@ public class Content extends Product {
         this.content = content;
     }
 
-    public Producer getProducer() {
+    public Party getProducer() {
         return producer;
     }
 
@@ -75,7 +78,7 @@ public class Content extends Product {
         this.producer = producer;
     }
 
-    public ISP getISP() {
+    public Party getISP() {
         return isp;
     }
 

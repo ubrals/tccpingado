@@ -8,11 +8,11 @@ public class ManagementEcontract {
         this.status = Status.UNKNOWN;
     }
 
-    protected String getStatusLabel(){
+    public String getStatusLabel(){
         return this.status.toString();
     }
     
-    protected int getStatus() {
+    public int getStatus() {
         int status;
         switch (this.status) {
         case UNKNOWN:

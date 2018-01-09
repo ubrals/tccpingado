@@ -21,7 +21,6 @@ public class CtrlExchangedValue implements ExchangedValueDaoInterface {
 	@Override
 	public Content findByContentId(long id) {
 		ExchangedValueDaoInterface exv_dao = new ExchangedValueDaoReacional(ConexaoDerbyDefault.defaultConection());
-		
 		return exv_dao.findByContentId(id);
 	}
 

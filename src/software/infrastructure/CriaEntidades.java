@@ -92,60 +92,60 @@ public class CriaEntidades {
         customer.addCredits(200000l, Byte.valueOf("10"));
     }
 
-     void criarContratoPrdIsp() {
-        ectPrdXisp = new Econtract();
-        ExchangedValue content = new Content("video", null, null, ectPrdXisp, "PvsNP", 17000000l, new byte[]{ 0 }, producer, isp, "", "");
+//     void criarContratoPrdIsp() {
+//        ectPrdXisp = new Econtract();
+//        ExchangedValue content = new Content("video", null, null, ectPrdXisp, "PvsNP", 17000000l, new byte[]{ 0 }, producer, isp, "", "");
+//
+//        ectPrdXisp.setExchangedValue(content);
+//
+//        Collection<Party> party = new ArrayList<Party>();
+//        party.add(producer);
+//        party.add(isp);
+//        ectPrdXisp.setParty(party);
+//
+//        EnactmentEcontract ectEnactment = new EnactmentEcontract();
+//        ectEnactment.setValidTrue();
+//        // ---
+//        ManagementEcontract ectManagement = new ManagementEcontract();
+//        ectManagement.setStatus(Status.INITIATED);
+//        // ---
+//        MicroEcontract ectMicro = new MicroEcontract(60);
+//        // ---
+//        ectPrdXisp.setEnactmentEcontract(ectEnactment);
+//        ectPrdXisp.setManagementEcontract(ectManagement);
+//        ectPrdXisp.setMicroEcontract(ectMicro);
+//
+//        isp.receiveContent((Content) content);
+//    }
 
-        ectPrdXisp.setExchangedValue(content);
-
-        Collection<Party> party = new ArrayList<Party>();
-        party.add(producer);
-        party.add(isp);
-        ectPrdXisp.setParty(party);
-
-        EnactmentEcontract ectEnactment = new EnactmentEcontract();
-        ectEnactment.setValidTrue();
-        // ---
-        ManagementEcontract ectManagement = new ManagementEcontract();
-        ectManagement.setStatus(Status.INITIATED);
-        // ---
-        MicroEcontract ectMicro = new MicroEcontract(60);
-        // ---
-        ectPrdXisp.setEnactmentEcontract(ectEnactment);
-        ectPrdXisp.setManagementEcontract(ectManagement);
-        ectPrdXisp.setMicroEcontract(ectMicro);
-
-        isp.receiveContent((Content) content);
-    }
-
-     void criarContratoIspCst(String nome) {
-        ectIspXcst = new Econtract();
-        ExchangedValue content;
-        for (Content cont : isp.listContent()) {
-            if (cont.getTitle() == nome) {
-                content = cont;
-                break;
-            }
-        }
-        Collection<Party> party = new ArrayList<Party>();
-        party.add(producer);
-        party.add(isp);
-        ectPrdXisp.setParty(party);
-
-        EnactmentEcontract ectEnactment = new EnactmentEcontract();
-        ectEnactment.setValidTrue();
-        // ---
-        ManagementEcontract ectManagement = new ManagementEcontract();
-        ectManagement.setStatus(Status.INITIATED);
-        // ---
-        MicroEcontract ectMicro = new MicroEcontract(60);
-        // ---
-        JustintimeEcontract ectJust = new JustintimeEcontract();
-        long ts = System.currentTimeMillis();
-        long mspdia = 1000l * 60l * 60l * 24l;
-        ts = ts + (mspdia * 5);
-        ectJust.setTimeToStartLong(ts);
-    }
+//     void criarContratoIspCst(String nome) {
+//        ectIspXcst = new Econtract();
+//        ExchangedValue content;
+//        for (Content cont : isp.listContent()) {
+//            if (cont.getTitle() == nome) {
+//                content = cont;
+//                break;
+//            }
+//        }
+//        Collection<Party> party = new ArrayList<Party>();
+//        party.add(producer);
+//        party.add(isp);
+//        ectPrdXisp.setParty(party);
+//
+//        EnactmentEcontract ectEnactment = new EnactmentEcontract();
+//        ectEnactment.setValidTrue();
+//        // ---
+//        ManagementEcontract ectManagement = new ManagementEcontract();
+//        ectManagement.setStatus(Status.INITIATED);
+//        // ---
+//        MicroEcontract ectMicro = new MicroEcontract(60);
+//        // ---
+//        JustintimeEcontract ectJust = new JustintimeEcontract();
+//        long ts = System.currentTimeMillis();
+//        long mspdia = 1000l * 60l * 60l * 24l;
+//        ts = ts + (mspdia * 5);
+//        ectJust.setTimeToStartLong(ts);
+//    }
 
 //    public static void main(String[] args) {
 //        criarEntidades();

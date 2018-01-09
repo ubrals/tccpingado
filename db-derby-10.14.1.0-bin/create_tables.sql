@@ -31,7 +31,9 @@ create table ECONTRACT (
     MICROFRACTION int,
     JITTIMETOSTART varchar(14),
     ENACTMENTVALID int,
-    MANAGEMENTSTATUS int
+    MANAGEMENTSTATUS int,
+    FRAMEWORK varchar(24),
+    FRAMEWORK_VALUE varchar(24)
 );
 select id, contentid, partyid1, partyid2, microfraction, jittimetostart, enactmentvalid, managementstatus from econtract;
                               ID,           CONTENTID,    
@@ -39,9 +41,11 @@ select id, contentid, partyid1, partyid2, microfraction, jittimetostart, enactme
                                                            PARTYID2,    
                                                                   MICROFRACTION,    
                                                                       JITTIMETOSTART, ENACTMENTVALID,    
-                                                                                         MANAGEMENTSTATUS
+                                                                                         MANAGEMENTSTATUS,
+                                                                                            FRAMEWORK,
+                                                                                                    FRAMEWORK_VALUE
 select * from econtract;
-insert into econtract values (102938,       918273, 18374, 10000, 60, '201801022345', 1, 1);
+insert into econtract values (102938,       918273, 18374, 10000, 60, '201801022345', 1, 1, 'TIME', 'SECOND');
 insert into econtract values (231562075273, 0,      888,   29172, 60, '0',            0, 0);
 create table TMP (
     ID number primary key
@@ -62,6 +66,7 @@ create table EXCHANGEDVALUE (
     LOCATION varchar(512),
     FILENAME varchar(512)
 );
+select * from exchangedvalue;
 -- insert into exchangedvalue values (918273, 'P vs NP', 54254305, '/Library/WebServer/Documents');
 insert into exchangedvalue values (918273, 'video', 'educational', NULL, 102938, 'P vs NP', 54254305, 18374, 10000, '/Library/WebServer/Documents', 'PvsNP_480p.mp4');
 select id, type, subtype, value, econtractid, title, size, producerid, ispid, location, filename from exchangedvalue;

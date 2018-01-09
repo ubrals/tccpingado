@@ -19,6 +19,10 @@ public class EcontractBuilder {
         econtract = new Econtract();
     }
     
+    protected void setEcontractId(long id){
+        econtract.setId(id);
+    }
+    
     protected void setParties(Party provider, Party consumer) throws Exception {
         Collection<Party> parties = new ArrayList<>();
         parties.add(provider);
@@ -49,15 +53,33 @@ public class EcontractBuilder {
         econtract.setJustintimeEcontract(justintimeEcontract);
     }
     
+    protected void setJustintimeEcontract(long timeToStart) throws Exception {
+        JustintimeEcontract justintimeEcontract = new JustintimeEcontract();
+        justintimeEcontract.setTimeToStartLong(timeToStart);
+        econtract.setJustintimeEcontract(justintimeEcontract);
+    }
+    
     protected void setEnactmentEcontract() throws Exception {
         EnactmentEcontract enactmentEcontract = new EnactmentEcontract();
         enactmentEcontract.setValidTrue();
         econtract.setEnactmentEcontract(enactmentEcontract);
     }
     
+    protected void setEnactmentEcontract(int valid) throws Exception {
+        EnactmentEcontract enactmentEcontract = new EnactmentEcontract();
+        enactmentEcontract.setValidInt(valid);
+        econtract.setEnactmentEcontract(enactmentEcontract);
+    }
+    
     protected void setManagementEcontract() throws Exception {
         ManagementEcontract managementEcontract = new ManagementEcontract();
         managementEcontract.setStatus(1);
+        econtract.setManagementEcontract(managementEcontract);
+    }
+    
+    protected void setManagementEcontract(int status) throws Exception {
+        ManagementEcontract managementEcontract = new ManagementEcontract();
+        managementEcontract.setStatus(status);
         econtract.setManagementEcontract(managementEcontract);
     }
     

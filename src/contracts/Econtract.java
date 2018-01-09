@@ -10,19 +10,19 @@ public class Econtract {
 
     private long id;
 
+    private ExchangedValue exchangedValue;
+
+    private Collection<Party> parties;
+
     private Collection<Transaction> transactions;
 
     private MicroEcontract microEcontract;
 
     private JustintimeEcontract justintimeEcontract;
 
-    private ManagementEcontract managementEcontract;
-
     private EnactmentEcontract enactmentEcontract;
 
-    private Collection<Party> parties;
-
-    private ExchangedValue exchangedValue;
+    private ManagementEcontract managementEcontract;
 
     private Framework framework;
 

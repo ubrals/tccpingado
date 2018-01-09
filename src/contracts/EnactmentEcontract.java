@@ -8,12 +8,12 @@ public class EnactmentEcontract {
         this.valid = false;
     }
 
-    protected boolean isValid() {
+    public boolean isValid() {
         return valid;
     }
 
-    protected int isValidInt() {
-        if(valid == true)
+    public int isValidInt() {
+        if(this.valid == true)
             return 1;
         return 0;
     }
@@ -24,6 +24,11 @@ public class EnactmentEcontract {
 
     protected void setValidTrue() {
         this.valid = true;
+    }
+    
+    protected void setValidInt(int valid){
+        if(valid == 1) this.valid = true;
+        else this.valid = false;
     }
 
 }

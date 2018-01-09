@@ -13,7 +13,9 @@ public class View {
     public static void main(String[] args) {
         CriaEntidades entidades = new CriaEntidades();
         entidades.criarEntidades();
-        entidades.criarContratoPrdIsp();
+        // TODO: Está comentado apos Builder
+        // soh devera funcionar assim na versao TCC1
+//        entidades.criarContratoPrdIsp();
         Producer prod = entidades.getProducer();
         ISP isp = entidades.getIsp();
         Econtract ectProdIsp = entidades.getEctPrdXisp();

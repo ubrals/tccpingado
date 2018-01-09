@@ -19,7 +19,15 @@ public class EcontractDirector {
         this.builder = new EcontractBuilder();
     }
     
-    public void build(Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int fractionMicro) throws Exception {
+    public Econtract newCleanContract(long id){
+        this.builder = new EcontractBuilder();
+        Econtract econtract = new Econtract();
+        econtract.setId(id);
+        return econtract;
+    }
+    
+    public void buildNewEcontract(Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int fractionMicro) throws Exception {
+        builder.buildEcontract();
         builder.setParties(provider, consumer);
         builder.setExchangedValue(content);
         builder.setFramework(framework, frameworkValue);
@@ -27,6 +35,18 @@ public class EcontractDirector {
         builder.setJustintimeEcontract();
         builder.setEnactmentEcontract();
         builder.setManagementEcontract();
+    }
+    
+    public void buildExistentEcontract(long econtractId, Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int microFraction, long jitTimeToStart, int valid, int status) throws Exception {
+        builder.buildEcontract();
+        builder.setEcontractId(econtractId);
+        builder.setParties(provider, consumer);
+        builder.setExchangedValue(content);
+        builder.setFramework(framework, frameworkValue);
+        builder.setMicroEcontract(microFraction);
+        builder.setJustintimeEcontract(jitTimeToStart);
+        builder.setEnactmentEcontract(valid);
+        builder.setManagementEcontract(status);
     }
     
     public Econtract getObject(){

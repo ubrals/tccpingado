@@ -21,7 +21,6 @@ public class ISP extends CryptoPerson implements CSP {
 
     public ISP(long id, String name) {
         super(id, name);
-        // TODO Auto-generated constructor stub
     }
 
 
@@ -58,9 +57,25 @@ public class ISP extends CryptoPerson implements CSP {
 	 */
 	public void deliverContent(Content content, Party consumer) throws Exception {
 		CtrlEcontract ctrl_ect = new CtrlEcontract();
-		Framework framework = new Time(TimeShares.SECOND);
-		CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
-		Econtract econtract = ctrl_ect.newEcontract(content, content.getISP(), consumer, framework, ((Time)framework).getShareLabel(), 60);
+		
+        Econtract econtract = ctrl_ect.findEcontractById(content.getId());
+                  econtract = content.getEcontract();
+        long econtractId = content.getEcontract().getId();
+        Party provider = null;
+        int i = 0;
+        for(Party party : econtract.getParty()){
+            if(i == 0) provider = party;
+        }
+        Framework framework = content.getEcontract().getFramework();
+        String frameworkValue = ((Time)framework).getValue();
+        int fractionMicro = econtract.getMicroEcontract().getFraction();
+//        long jitTimeToStart = econtract.getJustintimeEcontract().getTimeToStartLong();
+//        int valid = econtract.getEnactmentEcontract().isValidInt();
+//        int status = econtract.getManagementEcontract().getStatus();
+        CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
+//		econtract = ctrl_ect.existentEcontract(econtractId, content, provider, consumer, framework, frameworkValue, fractionMicro, jitTimeToStart, valid, status);
+		econtract = ctrl_ect.newEcontract(content, provider, consumer, framework, frameworkValue, fractionMicro);
+		
         String contract_file = ctrl_exv.makeSymLink(econtract.getId(),
                                                     ((Content)econtract.getExchangedValue()).getLocation(),
                                                     ((Content)econtract.getExchangedValue()).getFilename());

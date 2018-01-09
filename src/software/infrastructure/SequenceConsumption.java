@@ -2,10 +2,13 @@ package software.infrastructure;
 
 import java.util.Collection;
 
+import contracts.Econtract;
 import entities.Customer;
 import entities.ISP;
 import entities.Party;
 import entities.values.Content;
+import software.controllers.CtrlEcontract;
+import software.controllers.CtrlExchangedValue;
 
 public class SequenceConsumption {
 
@@ -16,6 +19,7 @@ public class SequenceConsumption {
 		
 		////////
 		// Lista conteudo
+		System.out.println("DBG::" + "Sequence");
 		Collection<Content> contents = ((ISP)isp).listContent();
 		
 		for(Content content : contents){
@@ -26,7 +30,12 @@ public class SequenceConsumption {
 		
 		/////////
 		// Seleciona conteudo
-		((ISP)isp).deliverContent(cont_selecionado, customer);
+		try {
+            ((ISP)isp).deliverContent(cont_selecionado, customer);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 
 }
