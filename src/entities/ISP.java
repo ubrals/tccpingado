@@ -60,7 +60,6 @@ public class ISP extends CryptoPerson implements CSP {
 		
         Econtract econtract = ctrl_ect.findEcontractById(content.getId());
                   econtract = content.getEcontract();
-        long econtractId = content.getEcontract().getId();
         Party provider = null;
         int i = 0;
         for(Party party : econtract.getParty()){

@@ -1,16 +1,12 @@
 package contracts;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import entities.Party;
 import entities.values.Content;
 import pricing.Framework;
-import pricing.components.Time;
 
 public class EcontractDirector {
     
-    EcontractBuilder builder;
+    private EcontractBuilder builder;
     
     public EcontractDirector(){
     }
