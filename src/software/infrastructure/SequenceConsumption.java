@@ -7,6 +7,7 @@ import entities.Customer;
 import entities.ISP;
 import entities.Party;
 import entities.values.Content;
+import entities.values.ContentDeleivered;
 import software.controllers.CtrlEcontract;
 import software.controllers.CtrlExchangedValue;
 
@@ -16,6 +17,7 @@ public class SequenceConsumption {
 		Party isp = new ISP(10000, "Mack Content Service Provider"); 
 		Party customer = new Customer(29172, "Andre Miguel");
 		Content cont_selecionado = null;
+		ContentDeleivered contentDeleivered = null;
 		
 		////////
 		// Lista conteudo
@@ -31,11 +33,21 @@ public class SequenceConsumption {
 		/////////
 		// Seleciona conteudo
 		try {
-            ((ISP)isp).deliverContent(cont_selecionado, customer);
+		    contentDeleivered =  ((ISP)isp).deliverContent(cont_selecionado, customer);
+		    System.out.println("url=" + contentDeleivered.getUrl());
+		    System.out.println("econtractId=" + contentDeleivered.getEcontractId());
+            System.out.println("contentId=" + contentDeleivered.getContentId());
+            System.out.println("customerId=" + contentDeleivered.getCustomerId());
         } catch (Exception e) {
-            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        /////////
+        // Cobra conteudo
+        try {
+            ((ISP)isp).chargeDeliveredContent(contentDeleivered);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 	}
-
 }

@@ -6,12 +6,14 @@ import java.util.List;
 
 import contracts.Econtract;
 import entities.values.Content;
+import entities.values.ContentDeleivered;
 import pricing.Framework;
 import pricing.components.Time;
 import pricing.components.TimeShares;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
 import resources.databases.impl.relacional.ExchangedValueDaoReacional;
 import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
+import software.blockchain.PrepareData;
 import software.controllers.CtrlEcontract;
 import software.controllers.CtrlExchangedValue;
 
@@ -52,10 +54,11 @@ public class ISP extends CryptoPerson implements CSP {
 
 
 	/**
+	 * @return 
 	 * @throws Exception 
 	 * @see entities.CSP#deliverContent()
 	 */
-	public void deliverContent(Content content, Party consumer) throws Exception {
+	public ContentDeleivered deliverContent(Content content, Party consumer) throws Exception {
 		CtrlEcontract ctrl_ect = new CtrlEcontract();
 		
         Econtract econtract = ctrl_ect.findEcontractById(content.getId());
@@ -81,14 +84,22 @@ public class ISP extends CryptoPerson implements CSP {
         System.out.println(contract_file);
         String url = ctrl_exv.getURL("http://localhost", "/", contract_file);
         System.out.println(url);
+        
+        return new ContentDeleivered(url, content.getId(), econtract.getId(), consumer.getId());
 	}
 
 
 	/**
 	 * @see entities.CSP#chargeDeliveredContent()
 	 */
-	public void chargeDeliveredContent(Econtract econtract) {
-
+	public void chargeDeliveredContent(ContentDeleivered contentDeleivered) throws Exception {
+	    PrepareData prepareData = new PrepareData();
+	    prepareData.getData(contentDeleivered);
+	    
+	    Runtime.getRuntime().exec("java -jar dist/Send.jar "
+	                                                + "localhost " 
+	                                                + mediaPlayer.getCurrentTime().toSeconds() ); 
+	                                                //+ " " + econtractId);
 	}
 
 

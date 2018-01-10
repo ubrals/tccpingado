@@ -6,9 +6,9 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Date;
 
-public class Send {
+public class SendDebit {
 
-    public Send() {
+    public SendDebit() {
         // TODO Auto-generated constructor stub
     }
 
@@ -17,7 +17,10 @@ public class Send {
             Socket cliente = null;
             String IP = "localhost";
             int port = 8888;
-            System.out.println("Voce pode rodar: java -jar ClienteTCPBasico $ENDERECO_IP");
+            long econtractId = 0l;
+            int debitAmount = 0;
+            
+            System.out.println("Voce pode rodar: java -jar SendDebit.jar $ENDERECO_IP $PORTA $ECONTRACT_ID $DEBIT_AMOUNT");
             if(args != null){
                 if(args[0] != null)
                     IP = args[0];
@@ -26,13 +29,25 @@ public class Send {
             }
             try {
                 cliente = new Socket(IP, port);
+                try {
+                    econtractId = Long.valueOf(args[2]);
+                    debitAmount = Integer.valueOf(args[3]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } catch (Exception e) {
-                // TODO: handle exception
+                e.printStackTrace();
             } finally {
                 IP = "localhost";
                 port = 8888;
                 try {
                     cliente = new Socket(IP, port);
+                    try {
+                        econtractId = Long.valueOf(args[0]);
+                        debitAmount = Integer.valueOf(args[1]);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } catch (Exception e2) {
                     e2.printStackTrace();
                 }
@@ -44,7 +59,8 @@ public class Send {
                 while(!inFromUser.ready()){
                     System.out.print("[" + new Date() + "] Entrada(cli): ");
 //                    String sentence = inFromUser.readLine();
-                    String sentence = args[1];
+//                    String sentence = args[1];
+                    String sentence = "" + debitAmount;
                     if(sentence.contentEquals("quit")){
                         break;
                     }
