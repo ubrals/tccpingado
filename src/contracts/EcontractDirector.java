@@ -22,23 +22,23 @@ public class EcontractDirector {
         return econtract;
     }
     
-    public void buildNewEcontract(Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int fractionMicro) throws Exception {
+    public void buildNewEcontract(Content content, Party provider, Party consumer, Framework framework, String frameworkReference, double frameworkPrice, int fractionMicro) throws Exception {
         builder.buildEcontract();
         builder.setParties(provider, consumer);
         builder.setExchangedValue(content);
-        builder.setFramework(framework, frameworkValue);
+        builder.setFramework(framework, frameworkReference, frameworkPrice);
         builder.setMicroEcontract(fractionMicro);
         builder.setJustintimeEcontract();
         builder.setEnactmentEcontract();
         builder.setManagementEcontract();
     }
     
-    public void buildExistentEcontract(long econtractId, Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int microFraction, long jitTimeToStart, int valid, int status) throws Exception {
+    public void buildExistentEcontract(long econtractId, Content content, Party provider, Party consumer, Framework framework, String frameworkReference, double frameworkPrice, int microFraction, long jitTimeToStart, int valid, int status) throws Exception {
         builder.buildEcontract();
         builder.setEcontractId(econtractId);
         builder.setParties(provider, consumer);
         builder.setExchangedValue(content);
-        builder.setFramework(framework, frameworkValue);
+        builder.setFramework(framework, frameworkReference, frameworkPrice);
         builder.setMicroEcontract(microFraction);
         builder.setJustintimeEcontract(jitTimeToStart);
         builder.setEnactmentEcontract(valid);

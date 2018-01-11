@@ -5,7 +5,7 @@ import java.util.List;
 
 import contracts.Econtract;
 import entities.values.Content;
-import entities.values.ContentDeleivered;
+import entities.values.ContentDelivered;
 
 public interface CSP {
 
@@ -17,9 +17,9 @@ public interface CSP {
 
 	public abstract Collection<Content> listContent();
 
-	public abstract ContentDeleivered deliverContent(Content content, Party consumer) throws Exception;
+	public abstract ContentDelivered deliverContent(Content content, Party consumer) throws Exception;
 
-	public abstract void chargeDeliveredContent(ContentDeleivered contentDeleivered) throws Exception;
+	public abstract void chargeDeliveredContent(ContentDelivered contentDeleivered) throws Exception;
 
 	public abstract void payDeliveredContent(Econtract econtract);
 

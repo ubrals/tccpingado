@@ -1,9 +1,9 @@
 package software.blockchain;
 
-import entities.values.ContentDeleivered;
+import entities.values.ContentDelivered;
 
 public class PrepareData {
-    public void getData(ContentDeleivered contentDeleivered){
+    public void getData(ContentDelivered contentDeleivered){
         
     }
 }

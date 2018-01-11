@@ -12,10 +12,13 @@ import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
 
 public class CtrlEcontract implements EcontractDaoInterface {
 	
-    public Econtract newEcontract(Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int fractionMicro) throws Exception{
+    public Econtract newEcontract(Content content, 
+                                  Party provider, Party consumer, 
+                                  Framework framework, String frameworkReference, double frameworkPrice, 
+                                  int fractionMicro) throws Exception{
         EcontractDirector ec_director = new EcontractDirector();
         ec_director.prepare();
-        ec_director.buildNewEcontract(content, provider, consumer, framework, frameworkValue, fractionMicro);
+        ec_director.buildNewEcontract(content, provider, consumer, framework, frameworkReference, frameworkPrice, fractionMicro);
         Econtract econtract = ec_director.getObject();
         
         insertEcontract(econtract);
@@ -23,10 +26,10 @@ public class CtrlEcontract implements EcontractDaoInterface {
         return econtract;
     }
 
-    public Econtract existentEcontract(long econtractId, Content content, Party provider, Party consumer, Framework framework, String frameworkValue, int fractionMicro, long jitTimeToStart, int valid, int status) throws Exception{
+    public Econtract existentEcontract(long econtractId, Content content, Party provider, Party consumer, Framework framework, String frameworkReference, double frameworkPrice, int fractionMicro, long jitTimeToStart, int valid, int status) throws Exception{
         EcontractDirector ec_director = new EcontractDirector();
         ec_director.prepare();
-        ec_director.buildExistentEcontract(econtractId, content, provider, consumer, framework, frameworkValue, fractionMicro, jitTimeToStart, valid, status);
+        ec_director.buildExistentEcontract(econtractId, content, provider, consumer, framework, frameworkReference, frameworkPrice, fractionMicro, jitTimeToStart, valid, status);
         Econtract econtract = ec_director.getObject();
         
         insertEcontract(econtract);

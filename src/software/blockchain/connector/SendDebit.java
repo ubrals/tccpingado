@@ -1,4 +1,4 @@
-package software.infrastructure;
+package software.blockchain.connector;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -17,10 +17,10 @@ public class SendDebit {
             Socket cliente = null;
             String IP = "localhost";
             int port = 8888;
-            long econtractId = 0l;
+            long consumerId = 0l;
             int debitAmount = 0;
             
-            System.out.println("Voce pode rodar: java -jar SendDebit.jar $ENDERECO_IP $PORTA $ECONTRACT_ID $DEBIT_AMOUNT");
+            System.out.println("Voce pode rodar: java -jar SendDebit.jar $ENDERECO_IP $PORTA $CRYPTOPERSON_ID $DEBIT_AMOUNT");
             if(args != null){
                 if(args[0] != null)
                     IP = args[0];
@@ -30,7 +30,7 @@ public class SendDebit {
             try {
                 cliente = new Socket(IP, port);
                 try {
-                    econtractId = Long.valueOf(args[2]);
+                    consumerId = Long.valueOf(args[2]);
                     debitAmount = Integer.valueOf(args[3]);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -43,7 +43,7 @@ public class SendDebit {
                 try {
                     cliente = new Socket(IP, port);
                     try {
-                        econtractId = Long.valueOf(args[0]);
+                        consumerId = Long.valueOf(args[0]);
                         debitAmount = Integer.valueOf(args[1]);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -53,14 +53,20 @@ public class SendDebit {
                 }
             }
             try{
+                /*
+                 * inFromUser: preparo para enviar para servidor */
                 BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+                /*
+                 * outToServer: envio de dados para o servidor */
                 DataOutputStream outToServer = new DataOutputStream(cliente.getOutputStream());
+                /*
+                 * inFromServer: resposta do servidor */
                 BufferedReader inFromServer = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
                 while(!inFromUser.ready()){
                     System.out.print("[" + new Date() + "] Entrada(cli): ");
 //                    String sentence = inFromUser.readLine();
 //                    String sentence = args[1];
-                    String sentence = "" + debitAmount;
+                    String sentence = "" + consumerId + " " + debitAmount;
                     if(sentence.contentEquals("quit")){
                         break;
                     }

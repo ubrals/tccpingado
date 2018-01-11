@@ -1,55 +1,68 @@
 package pricing.components;
 
-import pricing.categories.UsageDependent;
+public class Time extends Component {
 
-public class Time extends UsageDependent implements Component {
-
-    private String label = "TIME";
-	private TimeShares share;
-
-    public Time(TimeShares share) {
-        this.share = share;
+    /**
+     * @param reference
+     * @param price
+     * @param label
+     */
+    public Time(TimeShares reference, double price, String label) {
+        super(reference, price, label);
     }
-
-    public Time(String share) {
+    public Time(String reference, double price, String label) {
+        super(reference, price, label);
         try {
-            setShare(share);
+            setReference(reference);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
+	@Override
+    public String getLabel() {
+        return super.getLabel();
+    }
+    
     @Override
-    public String getLabel(){
-        return this.label;
+    public void setLabel(String label) {
+        super.setLabel(label);
     }
-
-    public TimeShares getShare() {
-        return share;
+    
+    @Override
+    public TimeShares getReference() {
+        return (TimeShares) super.getReference();
     }
-
-    public String getShareLabel() {
-        return share.toString();
+    public String getReferenceString() {
+        return (String) super.getReference().toString();
     }
-
-	public void setShare(TimeShares share) {
-	    this.share = share;
-	}
-	
-	public void setShare(String share) throws Exception{
-	    switch (share.toUpperCase()) {
-        case "DAY": this.share = TimeShares.DAY; break;
-        case "HOUR": this.share = TimeShares.HOUR; break;
-        case "MINUTE": this.share = TimeShares.MINUTE; break;
-        case "SECOND": this.share = TimeShares.SECOND; break;
-        case "MILLISECOND": this.share = TimeShares.MILLISECOND; break;
+    
+    public void setReference(TimeShares reference) {
+        super.setReference(reference);
+    }
+    public void setReference(String reference) throws Exception{
+	    switch (reference.toUpperCase()) {
+//      case "DAY": this.share = TimeShares.DAY; break;
+//      case "HOUR": this.share = TimeShares.HOUR; break;
+//      case "MINUTE": this.share = TimeShares.MINUTE; break;
+//      case "SECOND": this.share = TimeShares.SECOND; break;
+//      case "MILLISECOND": this.share = TimeShares.MILLISECOND; break;
+        case "DAY":         super.setReference(TimeShares.DAY); break;
+        case "HOUR":        super.setReference(TimeShares.HOUR); break;
+        case "MINUTE":      super.setReference(TimeShares.MINUTE); break;        
+        case "SECOND":      super.setReference(TimeShares.SECOND); break;        
+        case "MILLISECOND": super.setReference(TimeShares.MILLISECOND); break;
         default: throw new Exception("..:ERR:Time share is not allowed");
         }
-	}
-	
-	@Override
-	public String getValue(){
-	    return getShareLabel();
-	}
-
+    }
+    
+    @Override
+    public double getPrice() {
+        return super.getPrice();
+    }
+    
+    @Override
+    public void setPrice(double price) {
+        super.setPrice(price);
+    }
 }

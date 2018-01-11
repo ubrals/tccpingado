@@ -34,10 +34,11 @@ public class EcontractBuilder {
         econtract.setExchangedValue(content);
     }
     
-    protected void setFramework(Framework framework, String value) throws Exception {
+    protected void setFramework(Framework framework, String reference, double price) throws Exception {
         if(framework instanceof Time){
-            ((Time)framework).setShare(value);
-            econtract.setFramework((Time)framework);
+            framework.setReference(reference);
+            framework.setPrice(price);
+            econtract.setFramework(framework);
         }
     }
     

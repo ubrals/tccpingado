@@ -6,7 +6,7 @@ import java.util.List;
 
 import contracts.Econtract;
 import entities.values.Content;
-import entities.values.ContentDeleivered;
+import entities.values.ContentDelivered;
 import pricing.Framework;
 import pricing.components.Time;
 import pricing.components.TimeShares;
@@ -58,7 +58,7 @@ public class ISP extends CryptoPerson implements CSP {
 	 * @throws Exception 
 	 * @see entities.CSP#deliverContent()
 	 */
-	public ContentDeleivered deliverContent(Content content, Party consumer) throws Exception {
+	public ContentDelivered deliverContent(Content content, Party consumer) throws Exception {
 		CtrlEcontract ctrl_ect = new CtrlEcontract();
 		
         Econtract econtract = ctrl_ect.findEcontractById(content.getId());
@@ -68,15 +68,19 @@ public class ISP extends CryptoPerson implements CSP {
         for(Party party : econtract.getParty()){
             if(i == 0) provider = party;
         }
+        long contentId = content.getId();
+        long econtractId = econtract.getId();
+        long consumerId = consumer.getId();
         Framework framework = content.getEcontract().getFramework();
-        String frameworkValue = ((Time)framework).getValue();
+        String frameworkReference = (String) framework.getReference();
+        double frameworkPrice = framework.getPrice();
         int fractionMicro = econtract.getMicroEcontract().getFraction();
 //        long jitTimeToStart = econtract.getJustintimeEcontract().getTimeToStartLong();
 //        int valid = econtract.getEnactmentEcontract().isValidInt();
 //        int status = econtract.getManagementEcontract().getStatus();
         CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
 //		econtract = ctrl_ect.existentEcontract(econtractId, content, provider, consumer, framework, frameworkValue, fractionMicro, jitTimeToStart, valid, status);
-		econtract = ctrl_ect.newEcontract(content, provider, consumer, framework, frameworkValue, fractionMicro);
+		econtract = ctrl_ect.newEcontract(content, provider, consumer, framework, frameworkReference, frameworkPrice, fractionMicro);
 		
         String contract_file = ctrl_exv.makeSymLink(econtract.getId(),
                                                     ((Content)econtract.getExchangedValue()).getLocation(),
@@ -85,21 +89,31 @@ public class ISP extends CryptoPerson implements CSP {
         String url = ctrl_exv.getURL("http://localhost", "/", contract_file);
         System.out.println(url);
         
-        return new ContentDeleivered(url, content.getId(), econtract.getId(), consumer.getId());
+        return new ContentDelivered(url, contentId, econtractId, consumerId, frameworkReference, frameworkPrice);
 	}
 
 
 	/**
 	 * @see entities.CSP#chargeDeliveredContent()
 	 */
-	public void chargeDeliveredContent(ContentDeleivered contentDeleivered) throws Exception {
-	    PrepareData prepareData = new PrepareData();
-	    prepareData.getData(contentDeleivered);
+	public void chargeDeliveredContent(ContentDelivered contentDelivered) throws Exception {
+        PrepareData prepareData = new PrepareData();
+        prepareData.getData(contentDelivered);
+        
+        long consumerId = contentDelivered.getConsumerId();
+        long contentId = contentDelivered.getContentId();
+        double debitAmount = contentDelivered.getDebitAmount();
+        long econtractId = contentDelivered.getEcontractId();
+        String timeReference = contentDelivered.getTimeReference();
+        String url = contentDelivered.getUrl();
 	    
-	    Runtime.getRuntime().exec("java -jar dist/Send.jar "
+	    Process sendProcess = Runtime.getRuntime().exec("java -jar dist/SendDebit.jar " 
 	                                                + "localhost " 
-	                                                + mediaPlayer.getCurrentTime().toSeconds() ); 
-	                                                //+ " " + econtractId);
+	                                                + "8888 " 
+	                                                + consumerId + " " 
+	                                                + debitAmount);
+	    if(sendProcess.exitValue() != 0)
+	        ;
 	}
 
 
