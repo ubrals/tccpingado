@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class Listen {
 
-    public Listen() {
+    private Listen() {
     }
 
     public static void main(String[] args) {
@@ -34,13 +34,16 @@ public class Listen {
                     while(!inFromUser.ready()){
                         String clientSentence = inFromClient.readLine();
                         String input[] = clientSentence.split(" ");
-                        String account = input[0];
-                        String debit = input[1];
-                        System.out.print("[" + new Date() + "] Cliente : account=" + account + "; debit=" + debit + "\n");
+                        String cmd = input[0];
+                        String consumerId = input[1];
+                        String password = input[2];
+                        String account = input[3];
+                        String econtract = input[4];
+                        String debit = input[5];
+                        System.err.print("[" + new Date() + "] Client : command=" + cmd + "; consumerId=" + consumerId + "; account=" + account + "; econtract=" + econtract + "; debit=" + debit + "\n");
                         try{
                             /*
-                             *  TODO: colocar desconto por conta aqui
-                             */
+                             * old
 //                            Runtime.getRuntime().exec("java -jar dist/Send.jar " + "localhost ");
 //                            Runtime.getRuntime().exec("cat /Users/ubrals/ethereum/microTransacao.eth |/usr/local/bin/geth attach ipc:///Users/ubrals/ethereum/geth.ipc >/Users/ubrals/ethereum/`date +%s`");
                             if((int)Double.parseDouble(clientSentence) % 15 == 0){
@@ -51,6 +54,40 @@ public class Listen {
                             if((int)Double.parseDouble(clientSentence) % 60 == 0){
                                 System.out.print("[" + new Date() + "] Ethereum: mineirando para processar transacoes\n");
                                 Runtime.getRuntime().exec("/Users/ubrals/ethereum/mineirar.sh");
+                            }
+                            // */
+                            switch (cmd.toUpperCase()) {
+                            case "DEBIT":
+                                System.out.print("[" + new Date() + "] Debit : consumerId=" + consumerId + "; account=" + account + "; econtract=" + econtract + "; debit=" + debit + "\n");
+                                String command[] = {
+                                        "java",
+                                        "-jar",
+                                        "dist/DebitAccountDefault.jar",
+                                /* 0 */ consumerId,
+                                /* 1 */ password,
+                                /* 2 */ account,
+                                /* 3 */ econtract,
+                                /* 4 */ debit
+                                };
+                                Process debitProcess = Runtime.getRuntime().exec(command);
+                                System.out.println(debitProcess.waitFor());
+                                System.out.println(debitProcess.isAlive());
+                                System.out.println(debitProcess.isAlive());
+                                if(debitProcess.exitValue() != 0){
+                                    outToClient = new DataOutputStream(cliente.getOutputStream());
+                                    //
+                                    // TODO: colocar error:return# 
+                                    outToClient.writeBytes("error");
+                                    outToClient.close();
+                                    Listen obj = new Listen();
+//                                    System.err.println("..:ERR:" + obj.getClass().getName() + ":Could not process debit from the account: " + command[2] + ".Exit(" + debitProcess.exitValue() + ")");
+                                    throw new Exception("..:ERR:" + obj.getClass().getName() + ":Could not process debit from the account: " + command[3] + " " + command[4] + " " + command[5] + " " + command[6] + " " + command[7] + ".Exit(" + debitProcess.exitValue() + ")");
+                                    //
+                                    // TODO: aqui deve retornar erro pro SendDebit
+                                }
+                                break;
+                            default:
+                                break;
                             }
                         }
                         catch(Exception ex){

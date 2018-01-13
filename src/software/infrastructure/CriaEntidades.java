@@ -77,17 +77,17 @@ public class CriaEntidades {
     void criarEntidades() {
         // ISP
         ispWallet = new Wallet("senha");
-        isp = new ISP((long) (Math.random() * 10000000l), "Provedor de conteudo LTDA");
+        isp = new ISP((long) (Math.random() * 10000000l), "Provedor de conteudo LTDA", "bobbob12", "0xae72eb6f58f92809940fdfaf3d292d08b55ed58a");
         isp.setWallet(ispWallet);
         isp.addCredits(300000l, Byte.valueOf("10"));
         // Producer
         prdWallet = new Wallet("senha");
-        producer = new Producer((long) (Math.random() * 10000000l), "Produtor independente");
+        producer = new Producer((long) (Math.random() * 10000000l), "Produtor independente", "bobbob12", "0xnull");
         producer.setWallet(prdWallet);
         producer.addCredits(200000l, Byte.valueOf("10"));
         // Customer
         cstWallet = new Wallet("senha");
-        customer = new Customer((long) (Math.random() * 10000000l), "Cliente final");
+        customer = new Customer((long) (Math.random() * 10000000l), "Cliente final", "bobbob12", "0xcd2c65c3d10e45836e0c9309ba8f773c18c2fb5d");
         customer.setWallet(cstWallet);
         customer.addCredits(200000l, Byte.valueOf("10"));
     }

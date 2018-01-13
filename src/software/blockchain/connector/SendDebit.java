@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class SendDebit {
 
-    public SendDebit() {
+    private SendDebit() {
         // TODO Auto-generated constructor stub
     }
 
@@ -18,9 +18,15 @@ public class SendDebit {
             String IP = "localhost";
             int port = 8888;
             long consumerId = 0l;
-            int debitAmount = 0;
+            String password = "";
+            String account = "";
+            long contractId = 0l;
+            double debitAmount = 0.0;
             
-            System.out.println("Voce pode rodar: java -jar SendDebit.jar $ENDERECO_IP $PORTA $CRYPTOPERSON_ID $DEBIT_AMOUNT");
+            System.out.println("Usage: java -jar SendDebit.jar $ENDERECO_IP $PORTA $CRYPTOPERSON_ID $WALLET_PASSWORD $CONTRACT_ID $DEBIT_AMOUNT");
+//            for(String arg : args)
+//                System.err.println(arg);
+//            System.err.println("");
             if(args != null){
                 if(args[0] != null)
                     IP = args[0];
@@ -31,27 +37,34 @@ public class SendDebit {
                 cliente = new Socket(IP, port);
                 try {
                     consumerId = Long.valueOf(args[2]);
-                    debitAmount = Integer.valueOf(args[3]);
+                    password = args[3];
+                    account = args[4];
+                    contractId = Long.valueOf(args[5]);
+                    debitAmount = Double.valueOf(args[6]);
+                    System.err.println("..:(Class.SendDebit)DBG:parms=" + consumerId + "/" + password + "/" + account +  "/" + contractId + "/" + debitAmount);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                IP = "localhost";
-                port = 8888;
-                try {
-                    cliente = new Socket(IP, port);
-                    try {
-                        consumerId = Long.valueOf(args[0]);
-                        debitAmount = Integer.valueOf(args[1]);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                }
             }
+//            finally {
+//                IP = "localhost";
+//                port = 8888;
+//                try {
+//                    cliente = new Socket(IP, port);
+//                    try {
+//                        consumerId = Long.valueOf(args[0]);
+//                        password = args[1];
+//                        contractId = Long.valueOf(args[2]);
+//                        debitAmount = Integer.valueOf(args[3]);
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                } catch (Exception e2) {
+//                    e2.printStackTrace();
+//                }
+//            }
             try{
                 /*
                  * inFromUser: preparo para enviar para servidor */
@@ -63,21 +76,43 @@ public class SendDebit {
                  * inFromServer: resposta do servidor */
                 BufferedReader inFromServer = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
                 while(!inFromUser.ready()){
-                    System.out.print("[" + new Date() + "] Entrada(cli): ");
+                    System.err.print("[" + new Date() + "] Entrada(cli): ");
 //                    String sentence = inFromUser.readLine();
 //                    String sentence = args[1];
-                    String sentence = "" + consumerId + " " + debitAmount;
+                    //                   0          1                  2                3                4                  5
+                    String sentence = "debit " 
+                                    + consumerId 
+                                    + " " 
+                                    + password 
+                                    + " " 
+                                    + account 
+                                    + " " 
+                                    + contractId 
+                                    + " " 
+                                    + debitAmount;
+                    System.err.println("sentence:" + sentence);
                     if(sentence.contentEquals("quit")){
                         break;
                     }
+                    // outToServer: manda comandos pra Listen
                     outToServer.writeBytes(sentence + '\n');
 //                    outToServer.writeBytes("quit" + '\n');
 //                    System.out.println("aguardando...");
+                    Thread.sleep(500l);
+                    // modifiedSentence: resposta do servidor
                     String modifiedSentence = inFromServer.readLine();
-                    System.out.println("[" + new Date() + "] Servidor: " + modifiedSentence);
+                    System.err.println("[" + new Date() + "] Servidor:Listen): " + modifiedSentence);
+                    if(modifiedSentence.contentEquals("error")){
+                        SendDebit obj = new SendDebit();
+                        System.err.println("..:ERR:" + obj.getClass().getName() + "Could not process debit from the account: " + "Listen" + ".Exit(" + modifiedSentence + ")");
+                        throw new Exception("..:ERR:Could not process debit for account");
+                    }
+                    System.out.println("modifiedSentence=" + modifiedSentence);
                     if(modifiedSentence.contentEquals("quit")){
                         break;
                     }
+                    Thread.sleep(400);
+                    break;
                 }
                 inFromUser.close();
                 outToServer.close();

@@ -4,6 +4,7 @@ connect 'jdbc:derby:tccpingado;user=app;password=app';
 connect 'jdbc:derby:tccpingado;user=sys;password=sys';
 connect 'jdbc:derby://localhost:1527/tccpingado;create=true';
 
+-- usar esta conexao
 connect 'jdbc:derby://localhost:1527/tccpingado';
 
 
@@ -12,17 +13,20 @@ create table CRYPTOPERSON (
     ID int primary key,
     NAME varchar(512),
     WALLET varchar(512),
-    ROLE varchar(8)
+    PASSWORD varchar(32),
+    ROLE varchar(8),
+    ACCOUNT varchar(42)
 );
 select id , name , wallet , role from cryptoperson;
-insert into cryptoperson (id, name, wallet, role) values (10000, 'Mack Content Service Provider', 'a4e3dc902ea0b53', 'ISP');
-insert into cryptoperson (id, name, wallet, role) values (18374, 'Computer Science Expert', '9e948dc3a4e9ab5', 'Producer');
-insert into cryptoperson (id, name, wallet, role) values (29172, 'Andre Miguel', 'cd832ae95017e5d', 'Customer');
+insert into cryptoperson values (10000, 'Mack Content Service Provider', 'a4e3dc902ea0b53', 'bobbob12', 'ISP', '0xae72eb6f58f92809940fdfaf3d292d08b55ed58a');
+insert into cryptoperson values (18374, 'Computer Science Expert', '9e948dc3a4e9ab5', 'bobbob12', 'Producer', '0xnull');
+insert into cryptoperson values (29172, 'Andre Miguel', 'cd832ae95017e5d', 'bobbob12', 'Customer', '0xcd2c65c3d10e45836e0c9309ba8f773c18c2fb5d');
 ---
-insert into cryptoperson values (10000, 'Mack Content Service Provider', 'a4e3dc902ea0b53', 'ISP'), (18374, 'Computer Science Expert', '9e948dc3a4e9ab5', 'Producer'), (29172, 'Andre Miguel', 'cd832ae95017e5d', 'Customer');
+--insert into cryptoperson values (10000, 'Mack Content Service Provider', 'a4e3dc902ea0b53', 'ISP'), (18374, 'Computer Science Expert', '9e948dc3a4e9ab5', 'Producer'), (29172, 'Andre Miguel', 'cd832ae95017e5d', 'Customer');
 
 -----------------------------------
 drop table econtract
+delete from econtract
 create table ECONTRACT (
     ID bigint primary key,
     CONTENTID int,
@@ -34,7 +38,7 @@ create table ECONTRACT (
     MANAGEMENTSTATUS int,
     FRAMEWORK varchar(24),
     FRAMEWORK_REFERENCE varchar(24),
-    FRAMEWORK_PRICE decimal(10,10)
+    FRAMEWORK_PRICE decimal(3,3)
 );
 select id, contentid, partyid1, partyid2, microfraction, jittimetostart, enactmentvalid, managementstatus from econtract;
                               ID,           CONTENTID,    
@@ -46,12 +50,9 @@ select id, contentid, partyid1, partyid2, microfraction, jittimetostart, enactme
                                                                                             FRAMEWORK,
                                                                                                     FRAMEWORK_VALUE
 select * from econtract;
-insert into econtract values (102938,       918273, 18374, 10000, 60, '201801022345', 1, 1, 'TIME', 'MINUTE', 0.0000500001);
+insert into econtract values (102938,       918273, 18374, 10000, 60, '201801022345', 1, 1, 'TIME', 'MINUTE', 0.005);
 select * from econtract;
 insert into econtract values (231562075273, 0,      888,   29172, 60, '0',            0, 0);
-create table TMP (
-    ID number primary key
-);
 
 -----------------------------------
 drop table exchangedvalue

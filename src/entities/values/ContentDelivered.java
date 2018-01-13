@@ -5,16 +5,21 @@ public class ContentDelivered {
     private long   contentId;
     private long   econtractId;
     private long   consumerId;
+    private String password;
+    private String account;
     private String timeReference;
     private double debitAmount;
     
-    public ContentDelivered(String url, long contentId, long econtractId, long consumerId, String timeReference, double debitAmount) {
+    public ContentDelivered(String url, long contentId, long econtractId, long consumerId, String password, String account, String frameworkReference, double debitAmount) {
         this.url = url;
         this.contentId = contentId;
         this.econtractId = econtractId;
         this.consumerId = consumerId;
-        this.setTimeReference(timeReference);
-        this.setDebitAmount(debitAmount);
+        this.password = password;
+        this.setAccount(account);
+        this.timeReference = frameworkReference;
+        this.debitAmount = debitAmount;
+        System.out.println("DBG::debitAmount=" + this.debitAmount);
     }
 
     public String getUrl() {
@@ -47,6 +52,22 @@ public class ContentDelivered {
 
     public void setCustomerId(long customerId) {
         this.consumerId = customerId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getTimeReference() {

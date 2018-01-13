@@ -12,10 +12,10 @@ import resources.databases.impl.relacional.javadb.ConexaoDerbyDefault;
 public class CtrlExchangedValue implements ExchangedValueDaoInterface {
 	
 	@Override
-	public Collection<Content> listContent() {
+	public Collection<Content> listContents() {
 		ExchangedValueDaoInterface exv_dao = new ExchangedValueDaoReacional(ConexaoDerbyDefault.defaultConection());
 		
-		return exv_dao.listContent();
+		return exv_dao.listContents();
 	}
 
 	@Override

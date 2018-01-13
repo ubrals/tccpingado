@@ -30,11 +30,11 @@ public class Time extends Component {
     }
     
     @Override
-    public TimeShares getReference() {
-        return (TimeShares) super.getReference();
+    public Object getReference() {
+        return super.getReference();
     }
     public String getReferenceString() {
-        return (String) super.getReference().toString();
+        return super.getReference().toString();
     }
     
     public void setReference(TimeShares reference) {

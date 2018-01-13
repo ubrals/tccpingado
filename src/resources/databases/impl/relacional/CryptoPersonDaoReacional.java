@@ -23,15 +23,17 @@ public class CryptoPersonDaoReacional implements CryptoPersonDaoInterface {
         try{
 	        Statement st;
 	        st = conexao.getConnection().createStatement();
-	        String sql = "select id , name , wallet , role from cryptoperson where id = " + id;
+	        String sql = "select * from cryptoperson where id = " + id;
 	        ResultSet resultados = st.executeQuery(sql);
 	        
 	        while(resultados.next()){
 	            long cryptoPersonId = resultados.getLong("id");
 	            String name = resultados.getString("name");
-	            String wallet = resultados.getString("wallet");
+                String wallet = resultados.getString("wallet");
+                String password = resultados.getString("password");
 	            String role = resultados.getString("role");
-	            cryptoPerson = new CryptoPerson(cryptoPersonId, name);
+	            String account = resultados.getString("account");
+	            cryptoPerson = new CryptoPerson(cryptoPersonId, name, password, account);
 	        }
         }
 	    catch(Exception ex){

@@ -6,9 +6,12 @@ import resources.Wallet;
 public class CryptoPerson extends Party implements HandleWallet {
 
     private Wallet wallet;
+    private String account;
 
-	public CryptoPerson(long id, String name) {
+	public CryptoPerson(long id, String name, String password, String account) {
         super(id, name);
+        this.account = account;
+        wallet = new Wallet(password);
     }
 
 	public Wallet getWallet() {
@@ -51,7 +54,15 @@ public class CryptoPerson extends Party implements HandleWallet {
 	}
 
 
-	/**
+	public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    /**
 	 * @see resources.HandleWallet#generateKey(long)
 	 * 
 	 *  

@@ -30,7 +30,7 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	}
 
 	@Override
-	public Collection<Content> listContent() {
+	public Collection<Content> listContents() {
         List<Content> contents;
         contents = new ArrayList<>();
         

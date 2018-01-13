@@ -53,7 +53,7 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
 		try{
 	        Statement st;
 	        st = conexao.getConnection().createStatement();
-	        String sql = "select ID, CONTENTID, PARTYID1, PARTYID2, MICROFRACTION, JITTIMETOSTART, ENACTMENTVALID, MANAGEMENTSTATUS, FRAMEWORK, FRAMEWORK_VALUE from econtract where ID = " + id;
+	        String sql = "select * from econtract where ID = " + id;
 	        ResultSet resultados = st.executeQuery(sql);
 	        
 	        if(resultados.getFetchSize() > 1)
@@ -68,8 +68,9 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
 	            long jitTimeToStart = resultados.getLong("JITTIMETOSTART");
 	            int enactmentValid = resultados.getInt("ENACTMENTVALID");
 	            int managementStatus = resultados.getInt("MANAGEMENTSTATUS");
-	            String frameworkComponent = resultados.getString("FRAMEWORK");
-	            String frameworkValue = resultados.getString("FRAMEWORK_VALUE");
+	            String frameworkComponent = resultados.getString("FRAMEWORK").toUpperCase();
+                String frameworkReference = resultados.getString("FRAMEWORK_REFERENCE").toUpperCase();
+                double frameworkPrice = resultados.getDouble("FRAMEWORK_PRICE");
 	            
 	            Content content = ctrl_exv.findByContentId(contentId);
                 Party provider = ctrl_crp.findCryptoPersonById(partyId1);
@@ -77,11 +78,17 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
                 
                 Framework framework = null;
                     switch(frameworkComponent.toUpperCase()){
-                        case "TIME" : framework = new Time(frameworkValue.toUpperCase());
+                        case "TIME" : framework = new Time(frameworkReference, frameworkPrice, frameworkComponent);
                     }
 	            
 	            ec_director.prepare();
-	            ec_director.buildExistentEcontract(econtractId, content, provider, consumer, framework, frameworkValue, microFraction, jitTimeToStart, enactmentValid, managementStatus);
+	            ec_director.buildExistentEcontract(econtractId, content, 
+	                                               provider, consumer, 
+	                                               framework, frameworkReference, frameworkPrice, 
+	                                               microFraction, 
+	                                               jitTimeToStart, 
+	                                               enactmentValid, 
+	                                               managementStatus);
 	            econtract = ec_director.getObject();
 	        }
         }
@@ -110,7 +117,8 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
             sql += econtract.getEnactmentEcontract().isValidInt() + ", ";
             sql += econtract.getManagementEcontract().getStatus() + ", ";
             sql += "'" + ((Component)econtract.getFramework()).getLabel() + "', ";
-            sql += "'" + ((Component)econtract.getFramework()).getValue() + "')";
+            sql += "'" + ((Component)econtract.getFramework()).getReference() + "', ";
+            sql += ((Component)econtract.getFramework()).getPrice() + ")";
             System.out.println(sql);
 	        
             try {

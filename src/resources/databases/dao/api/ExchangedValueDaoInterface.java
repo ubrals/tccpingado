@@ -5,6 +5,6 @@ import java.util.List;
 import entities.values.*;
 
 public interface ExchangedValueDaoInterface {
-	Collection<Content> listContent();
+	Collection<Content> listContents();
 	Content findByContentId(long id);
 }
