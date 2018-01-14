@@ -19,7 +19,6 @@ public class ContentDelivered {
         this.setAccount(account);
         this.timeReference = frameworkReference;
         this.debitAmount = debitAmount;
-        System.out.println("DBG::debitAmount=" + this.debitAmount);
     }
 
     public String getUrl() {

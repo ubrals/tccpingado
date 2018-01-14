@@ -17,7 +17,7 @@ public interface CSP {
 
 	public abstract Collection<Content> listContents();
 
-	public abstract ContentDelivered deliverContent(Content content, Party consumer, String password, String account) throws Exception;
+	public abstract ContentDelivered provisionContent(Content content, Party consumer, String password, String account) throws Exception;
 
 	public abstract void chargeDeliveredContent(ContentDelivered contentDeleivered) throws Exception;
 

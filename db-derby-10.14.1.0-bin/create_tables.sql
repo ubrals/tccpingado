@@ -55,6 +55,13 @@ select * from econtract;
 insert into econtract values (231562075273, 0,      888,   29172, 60, '0',            0, 0);
 
 -----------------------------------
+create table TRANSACTIONS (
+    ID bigint,
+    ECONTRACTID bigint,
+    primary key(ID, ECONTRACTID)
+);
+
+-----------------------------------
 drop table exchangedvalue
 create table EXCHANGEDVALUE (
     ID bigint primary key,

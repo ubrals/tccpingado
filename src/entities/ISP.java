@@ -38,6 +38,7 @@ public class ISP extends CryptoPerson implements CSP {
 
 
 	/**
+     * @return Collection<Content>
 	 * @see entities.CSP#listContents()
 	 */
 	public Collection<Content> listContents() {
@@ -53,11 +54,9 @@ public class ISP extends CryptoPerson implements CSP {
 	 * @throws Exception 
 	 * @see entities.CSP#deliverContent()
 	 */
-	public ContentDelivered deliverContent(Content content, Party consumer, String password, String account) throws Exception {
+	public ContentDelivered provisionContent(Content content, Party consumer, String password, String account) throws Exception {
 		CtrlEcontract ctrl_ect = new CtrlEcontract();
-		
-        Econtract econtract = ctrl_ect.findEcontractById(content.getId());
-                  econtract = content.getEcontract();
+		Econtract econtract = content.getEcontract();
         Party provider = null;
         int i = 0;
         for(Party party : econtract.getParty()){
@@ -70,27 +69,24 @@ public class ISP extends CryptoPerson implements CSP {
         String frameworkReference = (String) framework.getReference();
         double frameworkPrice = framework.getPrice();
         int fractionMicro = econtract.getMicroEcontract().getFraction();
-//        long jitTimeToStart = econtract.getJustintimeEcontract().getTimeToStartLong();
-//        int valid = econtract.getEnactmentEcontract().isValidInt();
-//        int status = econtract.getManagementEcontract().getStatus();
         CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
-//		econtract = ctrl_ect.existentEcontract(econtractId, content, provider, consumer, framework, frameworkValue, fractionMicro, jitTimeToStart, valid, status);
 		econtract = ctrl_ect.newEcontract(content, provider, consumer, framework, frameworkReference, frameworkPrice, fractionMicro);
 		econtractId = econtract.getId();
 		
         String contract_file = ctrl_exv.makeSymLink(econtract.getId(),
                                                     ((Content)econtract.getExchangedValue()).getLocation(),
                                                     ((Content)econtract.getExchangedValue()).getFilename());
-        System.out.println(contract_file);
         String url = ctrl_exv.getURL("http://localhost", "/", contract_file);
-        System.out.println(url);
+        System.err.println("..:INF:" + this.getClass().getSimpleName() + ":URL:" + url);
         
         return new ContentDelivered(url, contentId, econtractId, consumerId, password, account, frameworkReference, frameworkPrice);
 	}
-
-
+	
+	
 	/**
 	 * @see entities.CSP#chargeDeliveredContent()
+	 * @param contentDelivered:ContentDelivered
+	 * @throws Exception
 	 */
 	public void chargeDeliveredContent(ContentDelivered contentDelivered) throws Exception {
         long consumerId = contentDelivered.getConsumerId();
@@ -114,28 +110,30 @@ public class ISP extends CryptoPerson implements CSP {
         /* 5 */ String.valueOf(econtractId),
         /* 6 */ String.valueOf(debitAmount)
         };
+        Process sendProcess = Runtime.getRuntime().exec(command);
         /*
          * STDERR
          */
-        System.out.println("..:DBG:Read ErrorStream");
-        System.err.println("..:DBG:command[]=" + command[0] + " " + command[1] + " " + command[2] + " " + command[3] + " " + command[4] + " " + command[5] + " " + command[6] + " " + command[7] + " " + command[8] + " " + command[9]);
-	    Process sendProcess = Runtime.getRuntime().exec(command);
+//        System.err.println("..:DBG:Read ErrorStream");
+//        System.err.println("..:DBG:command[]=" + command[0] + " " + command[1] + " " + command[2] + " " + command[3] + " " + command[4] + " " + command[5] + " " + command[6] + " " + command[7] + " " + command[8] + " " + command[9]);
 	    BufferedReader br = new BufferedReader(new InputStreamReader(sendProcess.getErrorStream()));
 	    String line;
 	    while((line = br.readLine()) != null) {
-	        System.out.println("Read error stream: \"" + line + "\"");
+;//	        System.out.println("Read error stream: \"" + line + "\"");
         }
 	    // STDERR
 	    Thread.sleep(300);
 	    sendProcess.destroy();
-        System.out.println(sendProcess.isAlive());
+	    sendProcess.isAlive();
+//        System.err.println(sendProcess.isAlive());
         
-        System.out.println("");
-        System.out.println("waitFor: " + sendProcess.waitFor());
-	    System.out.println("isAlive: " + sendProcess.isAlive());
+	    sendProcess.waitFor();
+//        System.out.println("");
+//        System.out.println("waitFor: " + sendProcess.waitFor());
+//        System.out.println("isAlive: " + sendProcess.isAlive());
         if(sendProcess.exitValue() != 0){
-            System.out.println("..:ERR:" + this.getClass().getName() + "Could not process debit from the account: " + command[3] + ".Exit(" + sendProcess.exitValue() + ")");
-	        throw new Exception("..:ERR:Could not process debit from account. Exit(" + sendProcess.exitValue() + ")");
+            System.err.println("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
+	        throw new Exception("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
         }
 	}
 
