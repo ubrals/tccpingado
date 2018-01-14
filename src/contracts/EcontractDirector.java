@@ -48,4 +48,9 @@ public class EcontractDirector {
     public Econtract getObject(){
         return builder.getObject();
     }
+    
+    public void setEcontractStatus(Econtract econtract, Status status) throws Exception{
+        econtract.getManagementEcontract().setStatus(status);
+    }
+
 }

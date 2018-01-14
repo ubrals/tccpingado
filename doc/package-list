@@ -1,0 +1,15 @@
+contracts
+entities
+entities.values
+pricing
+pricing.categories
+pricing.components
+pricing.orientations
+resources
+resources.databases.dao.api
+resources.databases.impl.relacional
+resources.databases.impl.relacional.javadb
+software.blockchain.connector
+software.blockchain.oracle
+software.controllers
+software.infrastructure

@@ -11,6 +11,7 @@ import contracts.EnactmentEcontract;
 import contracts.JustintimeEcontract;
 import contracts.ManagementEcontract;
 import contracts.MicroEcontract;
+import contracts.Status;
 import entities.CryptoPerson;
 import entities.Customer;
 import entities.ISP;
@@ -127,7 +128,7 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
                     System.err.println("..:INF:" + this.getClass().getSimpleName() + ":new Econtract was created! (" + econtract.getId() + ")");
                 }
                 else{
-                    System.out.println("..:WRN:" + this.getClass().getSimpleName() + ":There has been inserted" + st.getUpdateCount() + "econtracts. Please contact sysadmin");
+                    System.out.println("..:WRN:" + this.getClass().getSimpleName() + ":There have been inserted " + st.getUpdateCount() + " econtracts. Please contact sysadmin");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -136,7 +137,42 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
         catch(Exception ex){
             ex.printStackTrace();
         }
-
     }
+    
+    public void setEcontractStatus(Econtract econtract, int status) throws Exception{
+        long id = econtract.getId();
+        int statusNow = econtract.getManagementEcontract().getStatus();
+        
+        
+        try{
+            Statement st;
+            st = conexao.getConnection().createStatement();
+            String sql = "select * from econtract where ID = " + id;
+            String upd = "update ECONTRACT set MANAGEMENTSTATUS = " + status + " " 
+                       + "where ID = " + id;
+            ResultSet resultados = st.executeQuery(sql);
 
+            if(resultados.getFetchSize() > 1)
+                throw new Exception("..:ERR:More than one Econtract was found. Contact sysadmin!");
+            
+            /////////
+            try {
+                st = conexao.getConnection().createStatement();
+                st.execute(upd);
+                if(st.getUpdateCount() == 1){
+                    System.err.println("..:INF:" + this.getClass().getSimpleName() + ":status of Econtract was updated! (" + econtract.getId() + ".status:" + status + ")");
+                }
+                else{
+                    System.out.println("..:WRN:" + this.getClass().getSimpleName() + ":There have been updated " + st.getUpdateCount() + " econtracts. Please contact sysadmin");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //////////
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+    }
 }

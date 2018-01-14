@@ -3,6 +3,7 @@ package software.controllers;
 
 import contracts.Econtract;
 import contracts.EcontractDirector;
+import contracts.Status;
 import entities.Party;
 import entities.values.Content;
 import pricing.Framework;
@@ -49,4 +50,15 @@ public class CtrlEcontract implements EcontractDaoInterface {
 		ect_dao.insertEcontract(econtract);
 	}
 	
+	public void setEcontractStatus(Econtract econtract, Status status) throws Exception{
+	    EcontractDirector director = new EcontractDirector();
+	    try {
+            director.setEcontractStatus(econtract, status);
+            int statusNew = econtract.getManagementEcontract().getStatus();
+            EcontractDaoReacional ect_dao = new EcontractDaoReacional(ConexaoDerbyDefault.defaultConection());
+            ect_dao.setEcontractStatus(econtract, statusNew);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
 }

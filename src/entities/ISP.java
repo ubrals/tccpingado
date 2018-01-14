@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import contracts.Econtract;
+import contracts.Status;
 import entities.values.Content;
 import entities.values.ContentDelivered;
 import pricing.Framework;
@@ -134,6 +135,13 @@ public class ISP extends CryptoPerson implements CSP {
         if(sendProcess.exitValue() != 0){
             System.err.println("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
 	        throw new Exception("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
+        }
+        else{
+            CtrlEcontract ctrl_ect = new CtrlEcontract();
+            Econtract econtract=ctrl_ect.findEcontractById(contentDelivered.getEcontractId());
+            ctrl_ect.setEcontractStatus(econtract, Status.INITIATED);
+            System.err.println("..:INF:" + this.getClass().getSimpleName() + ":Set Econtract.status:" + econtract.getManagementEcontract().getStatusLabel());
+            
         }
 	}
 
