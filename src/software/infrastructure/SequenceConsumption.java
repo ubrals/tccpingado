@@ -21,10 +21,17 @@ public class SequenceConsumption {
         Party customer = new Customer(29172, "Andre Miguel", "bobbob12", "0xcd2c65c3d10e45836e0c9309ba8f773c18c2fb5d");
         Content cont_selecionado = null;
         ContentDelivered contentDelivered = null;
+        String videoTitle="";
 
         ////////
         // Lista conteudo
-        cont_selecionado = selectContent(isp, "");
+        try{
+            videoTitle = args[0];
+        }
+        catch(Exception ex){
+            ;
+        }
+        cont_selecionado = selectContent(isp, videoTitle);
 //        System.err.println(cont_selecionado.getTitle());
 
         /////////
@@ -62,6 +69,8 @@ public class SequenceConsumption {
 
         for(Content content : contents){
             cont_selecionado = content;
+            if(cont_selecionado.getTitle().matches(contentName))
+                break;
         }
         return cont_selecionado;
     }

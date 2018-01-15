@@ -80,7 +80,16 @@ create table EXCHANGEDVALUE (
 );
 select * from exchangedvalue;
 -- insert into exchangedvalue values (918273, 'P vs NP', 54254305, '/Library/WebServer/Documents');
+delete from exchangedvalue where id in (234945, 547102, 156834, 481457, 334943)
 insert into exchangedvalue values (918273, 'video', 'educational', NULL, 102938, 'P vs NP', 54254305, 18374, 10000, '/Library/WebServer/Documents', 'PvsNP_480p.mp4');
+insert into exchangedvalue values (234945, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 1', 195354818, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_1.mp4');
+insert into exchangedvalue values (547102, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 2', 192927129, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_2.mp4');
+insert into exchangedvalue values (156834, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 3', 190248823, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_3.mp4');
+insert into exchangedvalue values (481457, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 4', 200387952, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_4.mp4');
+insert into exchangedvalue values (334943, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 1 m4v', 122016459, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_1.m4v');
+insert into exchangedvalue values (647205, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 2 m4v', 117055538, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_2.m4v');
+insert into exchangedvalue values (356836, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 3 m4v', 112115742, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_3.m4v');
+insert into exchangedvalue values (381455, 'video', 'entertainment', NULL, 102938, 'Futurama - O grande golpe de Bender - parte 4 m4v', 126699336, 18374, 10000, '/Library/WebServer/Documents', 'Futurama_O_grande_golpe_de_Bender_parte_4.m4v');
 select id, type, subtype, value, econtractid, title, size, producerid, ispid, location, filename from exchangedvalue;
 
 select id, title, size, location from exchangedvalue;
