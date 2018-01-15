@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import contracts.Econtract;
 import contracts.Status;
@@ -173,6 +174,7 @@ public class ISP extends CryptoPerson implements CSP {
 //            while(true){
             while(playerProcess.isAlive()){
                 try {
+                    System.err.println("..:DBG:(" + new Date() + ")" + this.getClass().getSimpleName() + ":sleep=" + sleep);
                     Thread.sleep(sleep);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -185,16 +187,16 @@ public class ISP extends CryptoPerson implements CSP {
                 this.setEcontractStatusDeliveredContent(contentDelivered, Status.PROVISIONING);
                 
                 // <STDERR>
-//                BufferedReader br = new BufferedReader(new InputStreamReader(playerProcess.getErrorStream()));
-//                String line;
-//                while((line = br.readLine()) != null) {
-//                    System.err.println("Read error stream: \"" + line + "\"");
-//                    Thread.sleep(1000l);
-//                    break;
-//                }
+                BufferedReader br = new BufferedReader(new InputStreamReader(playerProcess.getErrorStream()));
+                String line;
+                while((line = br.readLine()) != null) {
+                    System.err.println("Read error stream: \"" + line + "\"");
+                    Thread.sleep(1000l);
+                    break;
+                }
                 // </STDERR>
                 
-                playerProcess.waitFor();
+//                playerProcess.waitFor();
                 if(!playerProcess.isAlive()){
                     playerProcess.destroy();
                     break;
