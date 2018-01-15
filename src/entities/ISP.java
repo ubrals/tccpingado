@@ -136,17 +136,87 @@ public class ISP extends CryptoPerson implements CSP {
             System.err.println("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
 	        throw new Exception("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
         }
-        else{
-            CtrlEcontract ctrl_ect = new CtrlEcontract();
-            Econtract econtract=ctrl_ect.findEcontractById(contentDelivered.getEcontractId());
-            ctrl_ect.setEcontractStatus(econtract, Status.INITIATED);
-            System.err.println("..:INF:" + this.getClass().getSimpleName() + ":Set Econtract.status:" + econtract.getManagementEcontract().getStatusLabel());
-            
-        }
 	}
 
 
-	/**
+	@Override
+    public void setEcontractStatusDeliveredContent(ContentDelivered contentDelivered, Status status) throws Exception {
+        CtrlEcontract ctrl_ect = new CtrlEcontract();
+        Econtract econtract=ctrl_ect.findEcontractById(contentDelivered.getEcontractId());
+        ctrl_ect.setEcontractStatus(econtract, status);
+        System.err.println("..:INF:" + this.getClass().getSimpleName() + ":Set Econtract.status:" + econtract.getManagementEcontract().getStatusLabel());
+    }
+
+
+    @Override
+    public void deliverContent(ContentDelivered contentDelivered) throws Exception {
+        long sleep;
+        switch (contentDelivered.getTimeReference()) {
+        case "DAY":    sleep=1000l * 60l * 60l * 24l; break;
+        case "HOUR":   sleep=1000l * 60l * 60l; break;
+        case "MINUTE": sleep=1000l * 60l; break;
+        case "SECOND": sleep=1000l; break;
+        case "MILLISECOND": sleep=1l; break;
+        default: sleep=1000l * 60l; break;
+        }
+
+        this.setEcontractStatusDeliveredContent(contentDelivered, Status.STARTED);
+        try {
+            String command[] = {
+                    "java",
+                    "-jar",
+                    "dist/PlayerVideoNew.jar",
+                    contentDelivered.getUrl()
+            };
+            Process playerProcess = Runtime.getRuntime().exec(command);
+///////////
+//            while(true){
+            while(playerProcess.isAlive()){
+                try {
+                    Thread.sleep(sleep);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ///////
+                // charge
+                // TODO: alterar o tempo de sleep
+                // TODO: ou outra coisa. pq so esta rodando uma vez
+                this.chargeDeliveredContent(contentDelivered);
+                this.setEcontractStatusDeliveredContent(contentDelivered, Status.PROVISIONING);
+                
+                // <STDERR>
+//                BufferedReader br = new BufferedReader(new InputStreamReader(playerProcess.getErrorStream()));
+//                String line;
+//                while((line = br.readLine()) != null) {
+//                    System.err.println("Read error stream: \"" + line + "\"");
+//                    Thread.sleep(1000l);
+//                    break;
+//                }
+                // </STDERR>
+                
+                playerProcess.waitFor();
+                if(!playerProcess.isAlive()){
+                    playerProcess.destroy();
+                    break;
+                }
+//                System.out.println("");
+//                System.out.println("waitFor: " + sendProcess.waitFor());
+//                System.out.println("isAlive: " + sendProcess.isAlive());
+//                if(playerProcess.exitValue() != 0){
+//                    System.err.println("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
+//                    throw new Exception("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
+//                }
+            }
+            this.setEcontractStatusDeliveredContent(contentDelivered, Status.CONCLUDED);
+///////////
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
 	 * @see entities.CSP#payDeliveredContent()
 	 */
 	public void payDeliveredContent(Econtract econtract) {

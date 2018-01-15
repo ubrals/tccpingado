@@ -3,6 +3,7 @@ package software.infrastructure;
 import java.util.Collection;
 
 import contracts.Econtract;
+import contracts.Status;
 import entities.CryptoPerson;
 import entities.Customer;
 import entities.ISP;
@@ -11,6 +12,7 @@ import entities.values.Content;
 import entities.values.ContentDelivered;
 import software.controllers.CtrlEcontract;
 import software.controllers.CtrlExchangedValue;
+import software.provisioning.View;
 
 public class SequenceConsumption {
 
@@ -18,7 +20,7 @@ public class SequenceConsumption {
         Party isp = new ISP(10000, "Mack Content Service Provider", "bobbob12", "0xae72eb6f58f92809940fdfaf3d292d08b55ed58a");
         Party customer = new Customer(29172, "Andre Miguel", "bobbob12", "0xcd2c65c3d10e45836e0c9309ba8f773c18c2fb5d");
         Content cont_selecionado = null;
-        ContentDelivered contentDeleivered = null;
+        ContentDelivered contentDelivered = null;
 
         ////////
         // Lista conteudo
@@ -27,14 +29,20 @@ public class SequenceConsumption {
 
         /////////
         // Seleciona conteudo
-        contentDeleivered = provisionContent(isp, cont_selecionado, customer, "bobbob12", ((CryptoPerson)customer).getAccount());
+        contentDelivered = provisionContent(isp, cont_selecionado, customer, "bobbob12", ((CryptoPerson)customer).getAccount());
 
         /////////
         // Cobra conteudo
-        chargeDeliveredContent(isp, contentDeleivered);
+        chargeDeliveredContent(isp, contentDelivered);
 
         ///////
         // executar video e cobrar por tempo
+        try {
+            playContent(isp, contentDelivered);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
     
@@ -93,12 +101,42 @@ public class SequenceConsumption {
      * @param: contentDeleivered : ContentDelivered
      * @return: void
      */
-    public static void chargeDeliveredContent(Party isp, ContentDelivered contentDeleivered){
+    public static void chargeDeliveredContent(Party isp, ContentDelivered contentDelivered){
         try {
-            ((ISP)isp).chargeDeliveredContent(contentDeleivered);
-            System.err.println("Econtract: " + contentDeleivered.getEcontractId() + " foi tarifado");
+            ((ISP)isp).chargeDeliveredContent(contentDelivered);
+            System.err.println("Econtract: " + contentDelivered.getEcontractId() + " was charged");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //
+        try {
+            ((ISP)isp).setEcontractStatusDeliveredContent(contentDelivered, Status.INITIATED);
+            System.err.println("Econtract: " + contentDelivered.getEcontractId() + " has been initiated");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //
+        try {
+            ((ISP)isp).setEcontractStatusDeliveredContent(contentDelivered, Status.STARTED);
+            System.err.println("Econtract: " + contentDelivered.getEcontractId() + " has been started");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    /**
+     * 
+     * @param isp
+     * @param contentDelivered
+     * @throws Exception
+     */
+    public static void playContent(Party isp, ContentDelivered contentDelivered) throws Exception{
+        System.out.println("..:INF:playing content");
+        ((ISP)isp).deliverContent(contentDelivered);
+//        software.provisioning.View view = new software.provisioning.View(isp, contentDelivered);
+//        view.Play();
+        System.out.println("..:INF:stopped playing content");
     }
 }

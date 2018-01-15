@@ -107,7 +107,7 @@ public class Listen {
 //                        System.out.println("aguardando...");
                     }
 //                    Runtime.getRuntime().exec("cat /Users/ubrals/ethereum/mineirar.eth |geth attach ipc:///Users/ubrals/ethereum/geth.ipc");
-                    Runtime.getRuntime().exec("/Users/ubrals/ethereum/mineirar.sh");
+//                    Runtime.getRuntime().exec("/Users/ubrals/ethereum/mineirar.sh");
                     inFromUser.close();
                     outToClient.close();
                     inFromClient.close();

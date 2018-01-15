@@ -55,9 +55,11 @@ select * from econtract;
 insert into econtract values (231562075273, 0,      888,   29172, 60, '0',            0, 0);
 
 -----------------------------------
+drop table TRANSACTIONS
 create table TRANSACTIONS (
     ID bigint,
     ECONTRACTID bigint,
+    TRXTIMESTAMP varchar(14),
     primary key(ID, ECONTRACTID)
 );
 
