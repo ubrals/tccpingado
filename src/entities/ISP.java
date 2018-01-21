@@ -11,8 +11,10 @@ import contracts.Status;
 import entities.values.Content;
 import entities.values.ContentDelivered;
 import pricing.Framework;
+import resources.databases.dao.api.TransactionDaoInterface;
 import software.controllers.CtrlEcontract;
 import software.controllers.CtrlExchangedValue;
+import software.controllers.CtrlTransaction;
 
 public class ISP extends CryptoPerson implements CSP {
 
@@ -162,6 +164,7 @@ public class ISP extends CryptoPerson implements CSP {
         }
 
         this.setEcontractStatusDeliveredContent(contentDelivered, Status.STARTED);
+        
         try {
             String command[] = {
                     "java",
@@ -173,6 +176,17 @@ public class ISP extends CryptoPerson implements CSP {
 ///////////
 //            while(true){
             while(playerProcess.isAlive()){
+                ////////
+                try {
+                    int procExitValue = playerProcess.exitValue();
+                    if(procExitValue != 0){
+                        this.setEcontractStatusDeliveredContent(contentDelivered, Status.ABORTED);
+                        break;
+                    }
+//                    System.err.println("..DBG:" + this.getClass().getSimpleName() + ":proc.exitStatus=" + procExitValue);
+                }
+                catch (Exception e) { }
+                ///////
                 try {
                     System.err.println("..:DBG:(" + new Date() + ")" + this.getClass().getSimpleName() + ":sleep=" + sleep);
                     Thread.sleep(sleep);
@@ -185,6 +199,14 @@ public class ISP extends CryptoPerson implements CSP {
                 // TODO: ou outra coisa. pq so esta rodando uma vez
                 this.chargeDeliveredContent(contentDelivered);
                 this.setEcontractStatusDeliveredContent(contentDelivered, Status.PROVISIONING);
+                ////////
+                // transaction
+                TransactionDaoInterface ctrl_trx = new CtrlTransaction();
+                long transactionSeq = 1l+ctrl_trx.getLastTransactionSeq(contentDelivered.getEcontractId());
+                long trxtimestamp = System.currentTimeMillis();
+                double price = contentDelivered.getDebitAmount();
+                Transaction transaction = new Transaction(transactionSeq, trxtimestamp, price);
+                ctrl_trx.insertTransaction(transaction, contentDelivered.getEcontractId());
                 
                 // <STDERR>
                 BufferedReader br = new BufferedReader(new InputStreamReader(playerProcess.getErrorStream()));
@@ -209,7 +231,18 @@ public class ISP extends CryptoPerson implements CSP {
 //                    throw new Exception("..:ERR:" + this.getClass().getSimpleName() + ":Could not process debit from account: " + command[5] + ". Exit(" + sendProcess.exitValue() + ")");
 //                }
             }
-            this.setEcontractStatusDeliveredContent(contentDelivered, Status.CONCLUDED);
+            ////////
+            try {
+                int procExitValue = playerProcess.exitValue();
+                if(procExitValue == 0){
+                    this.setEcontractStatusDeliveredContent(contentDelivered, Status.CONCLUDED);
+                }
+//                System.err.println("..DBG:" + this.getClass().getSimpleName() + ":proc.exitStatus=" + procExitValue);
+            }
+            catch (Exception e) { }
+            ///////
+
+//            this.setEcontractStatusDeliveredContent(contentDelivered, Status.CONCLUDED);
 ///////////
         }
         catch (Exception e) {

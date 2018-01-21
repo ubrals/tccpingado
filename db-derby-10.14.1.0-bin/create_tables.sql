@@ -59,7 +59,8 @@ drop table TRANSACTIONS
 create table TRANSACTIONS (
     ID bigint,
     ECONTRACTID bigint,
-    TRXTIMESTAMP varchar(14),
+    TIMESTAMP varchar(14),
+    PRICE decimal(3,3),
     primary key(ID, ECONTRACTID)
 );
 
