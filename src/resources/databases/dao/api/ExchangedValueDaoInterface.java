@@ -5,6 +5,15 @@ import java.util.List;
 import entities.values.*;
 
 public interface ExchangedValueDaoInterface {
+    /**
+     * 
+     * @return {@link Collection} of {@link Content}
+     */
 	Collection<Content> listContents();
-	Content findByContentId(long id);
+	/**
+	 * 
+	 * @param id long as Content id
+	 * @return {@link Content}
+	 */
+	Content findContentById(long id);
 }

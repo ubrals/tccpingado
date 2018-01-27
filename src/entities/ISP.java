@@ -11,10 +11,7 @@ import contracts.Status;
 import entities.values.Content;
 import entities.values.ContentDelivered;
 import pricing.Framework;
-import resources.databases.dao.api.TransactionDaoInterface;
-import software.controllers.CtrlEcontract;
-import software.controllers.CtrlExchangedValue;
-import software.controllers.CtrlTransaction;
+import software.controllers.MasterController;
 
 public class ISP extends CryptoPerson implements CSP {
 
@@ -46,8 +43,9 @@ public class ISP extends CryptoPerson implements CSP {
 	 * @see entities.CSP#listContents()
 	 */
 	public Collection<Content> listContents() {
-		CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
-		this.contents = ctrl_exv.listContents();
+//		CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
+        MasterController controller = new MasterController();
+		this.contents = controller.listContents();
 		
 	    return contents;
 	}
@@ -59,7 +57,8 @@ public class ISP extends CryptoPerson implements CSP {
 	 * @see entities.CSP#deliverContent()
 	 */
 	public ContentDelivered provisionContent(Content content, Party consumer, String password, String account) throws Exception {
-		CtrlEcontract ctrl_ect = new CtrlEcontract();
+//		CtrlEcontract ctrl_ect = new CtrlEcontract();
+        MasterController controller = new MasterController();
 		Econtract econtract = content.getEcontract();
         Party provider = null;
         int i = 0;
@@ -73,14 +72,14 @@ public class ISP extends CryptoPerson implements CSP {
         String frameworkReference = (String) framework.getReference();
         double frameworkPrice = framework.getPrice();
         int fractionMicro = econtract.getMicroEcontract().getFraction();
-        CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
-		econtract = ctrl_ect.newEcontract(content, provider, consumer, framework, frameworkReference, frameworkPrice, fractionMicro);
+//        CtrlExchangedValue ctrl_exv = new CtrlExchangedValue();
+		econtract = controller.newEcontract(content, provider, consumer, framework, frameworkReference, frameworkPrice, fractionMicro);
 		econtractId = econtract.getId();
 		
-        String contract_file = ctrl_exv.makeSymLink(econtract.getId(),
+        String contract_file = controller.makeSymLink(econtract.getId(),
                                                     ((Content)econtract.getExchangedValue()).getLocation(),
                                                     ((Content)econtract.getExchangedValue()).getFilename());
-        String url = ctrl_exv.getURL("http://localhost", "/", contract_file);
+        String url = controller.getURL("http://localhost", "/", contract_file);
         System.err.println("..:INF:" + this.getClass().getSimpleName() + ":URL:" + url);
         
         return new ContentDelivered(url, contentId, econtractId, consumerId, password, account, frameworkReference, frameworkPrice);
@@ -144,9 +143,10 @@ public class ISP extends CryptoPerson implements CSP {
 
 	@Override
     public void setEcontractStatusDeliveredContent(ContentDelivered contentDelivered, Status status) throws Exception {
-        CtrlEcontract ctrl_ect = new CtrlEcontract();
-        Econtract econtract=ctrl_ect.findEcontractById(contentDelivered.getEcontractId());
-        ctrl_ect.setEcontractStatus(econtract, status);
+//        CtrlEcontract ctrl_ect = new CtrlEcontract();
+        MasterController controller = new MasterController();
+        Econtract econtract = controller.findEcontractById(contentDelivered.getEcontractId());
+        controller.setEcontractStatus(econtract, status);
         System.err.println("..:INF:" + this.getClass().getSimpleName() + ":Set Econtract.status:" + econtract.getManagementEcontract().getStatusLabel());
     }
 
@@ -201,12 +201,13 @@ public class ISP extends CryptoPerson implements CSP {
                 this.setEcontractStatusDeliveredContent(contentDelivered, Status.PROVISIONING);
                 ////////
                 // transaction
-                TransactionDaoInterface ctrl_trx = new CtrlTransaction();
-                long transactionSeq = 1l+ctrl_trx.getLastTransactionSeq(contentDelivered.getEcontractId());
+//                TransactionDaoInterface ctrl_trx = new CtrlTransaction();
+                MasterController controller = new MasterController();
+                long transactionSeq = 1l+controller.getLastTransactionSeq(contentDelivered.getEcontractId());
                 long trxtimestamp = System.currentTimeMillis();
                 double price = contentDelivered.getDebitAmount();
                 Transaction transaction = new Transaction(transactionSeq, trxtimestamp, price);
-                ctrl_trx.insertTransaction(transaction, contentDelivered.getEcontractId());
+                controller.insertTransaction(transaction, contentDelivered.getEcontractId());
                 
                 // <STDERR>
                 BufferedReader br = new BufferedReader(new InputStreamReader(playerProcess.getErrorStream()));

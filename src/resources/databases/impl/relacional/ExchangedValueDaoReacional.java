@@ -8,19 +8,12 @@ import java.util.Collection;
 import java.util.List;
 
 import contracts.Econtract;
-import contracts.EcontractBuilder;
 import contracts.EcontractDirector;
-import entities.ISP;
 import entities.Party;
-import entities.Producer;
 import entities.values.Content;
 import entities.values.ExchangedValue;
-import resources.databases.dao.api.CryptoPersonDaoInterface;
-import resources.databases.dao.api.EcontractDaoInterface;
 import resources.databases.dao.api.ExchangedValueDaoInterface;
-import resources.databases.impl.relacional.javadb.ConexaoJavaDbDerby;
-import software.controllers.CtrlCryptoPerson;
-import software.controllers.CtrlEcontract;
+import software.controllers.MasterController;
 
 public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	private ConexaoInterface conexao;
@@ -34,11 +27,12 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
         List<Content> contents;
         contents = new ArrayList<>();
         
-        ////
-        CtrlCryptoPerson ctrl_crp = new CtrlCryptoPerson();
-        ////
-        CtrlEcontract ctrl_ect = new CtrlEcontract();
-        
+//        ////
+//        CtrlCryptoPerson ctrl_crp = new CtrlCryptoPerson();
+//        ////
+//        CtrlEcontract ctrl_ect = new CtrlEcontract();
+        MasterController controller = new MasterController();
+
         try{
             Statement st;
             st = conexao.getConnection().createStatement();
@@ -63,10 +57,10 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
                 String filename = resultados.getString("FILENAME");
                 
                 ExchangedValue content;
-                Econtract econtract = ctrl_ect.findEcontractById(econtractId);
+                Econtract econtract = controller.findEcontractById(econtractId);
                 
-                Party producer = ctrl_crp.findCryptoPersonById(producerId);
-                Party isp = ctrl_crp.findCryptoPersonById(ispId);
+                Party producer = controller.findCryptoPersonById(producerId);
+                Party isp = controller.findCryptoPersonById(ispId);
 //                Econtract econtract = new Econtract();
 //                Producer producer = new Producer(999, "Produtor");
 //                ISP isp = new ISP(888, "Internet provedor");
@@ -85,12 +79,13 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	}
 
 	@Override
-	public Content findByContentId(long id) {
+	public Content findContentById(long id) {
 		Content content = (Content) null;
 		
-        ////
-        CtrlCryptoPerson ctrl_crp;
-        ctrl_crp = new CtrlCryptoPerson();
+//        ////
+//        CtrlCryptoPerson ctrl_crp;
+//        ctrl_crp = new CtrlCryptoPerson();
+        MasterController controller = new MasterController();
 
         try{
             Statement st;
@@ -120,8 +115,8 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
                 EcontractDirector ect_director = new EcontractDirector();
                 Econtract econtract = ect_director.newCleanContract(econtractId);
                 
-                Party producer = ctrl_crp.findCryptoPersonById(producerId);
-                Party isp = ctrl_crp.findCryptoPersonById(ispId);
+                Party producer = controller.findCryptoPersonById(producerId);
+                Party isp = controller.findCryptoPersonById(ispId);
 //                Econtract econtract = new Econtract();
 //                Producer producer = new Producer(999, "Produtor");
 //                ISP isp = new ISP(888, "Internet");

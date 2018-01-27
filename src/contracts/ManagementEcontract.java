@@ -4,14 +4,25 @@ public class ManagementEcontract {
 
     private Status status;
 
+    /**
+     * Create Management Econtract initiallly as Status.UNKNOWN
+     */
     protected ManagementEcontract() {
         this.status = Status.UNKNOWN;
     }
 
+    /**
+     * 
+     * @return status.toString() String UNKNOWN; INITIATED; STARTED; PROVISIONING; CONCLUDED; ABORTED
+     */
     public String getStatusLabel(){
         return this.status.toString();
     }
     
+    /**
+     * 
+     * @return status int 0:UNKNOWN; 1:INITIATED; 2:STARTED; 3:PROVISIONING; 4:CONCLUDED; 5:ABORTED
+     */
     public int getStatus() {
         int status;
         switch (this.status) {
@@ -39,10 +50,18 @@ public class ManagementEcontract {
         return status;
     }
 
+    /**
+     * 
+     * @param status {@link Status}
+     */
     protected void setStatus(Status status) {
         this.status = status;
     }
 
+    /**
+     * 
+     * @param status int 0:UNKNOWN; 1:INITIATED; 2:STARTED; 3:PROVISIONING; 4:CONCLUDED; 5:ABORTED
+     */
     protected void setStatus(int status) {
         switch (status) {
         case 0:

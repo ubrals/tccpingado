@@ -2,7 +2,6 @@ package software.infrastructure;
 
 import java.util.Collection;
 
-import contracts.Econtract;
 import contracts.Status;
 import entities.CryptoPerson;
 import entities.Customer;
@@ -10,9 +9,6 @@ import entities.ISP;
 import entities.Party;
 import entities.values.Content;
 import entities.values.ContentDelivered;
-import software.controllers.CtrlEcontract;
-import software.controllers.CtrlExchangedValue;
-import software.provisioning.View;
 
 public class SequenceConsumption {
 

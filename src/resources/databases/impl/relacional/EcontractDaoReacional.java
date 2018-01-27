@@ -2,34 +2,17 @@ package resources.databases.impl.relacional;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import contracts.Econtract;
 import contracts.EcontractDirector;
-import contracts.EnactmentEcontract;
-import contracts.JustintimeEcontract;
-import contracts.ManagementEcontract;
-import contracts.MicroEcontract;
-import contracts.Status;
 import entities.CryptoPerson;
-import entities.Customer;
-import entities.ISP;
 import entities.Party;
-import entities.Producer;
 import entities.values.Content;
-import entities.values.ExchangedValue;
-import entities.values.Product;
 import pricing.Framework;
 import pricing.components.Component;
 import pricing.components.Time;
-import pricing.components.TimeShares;
-import resources.databases.dao.api.CryptoPersonDaoInterface;
 import resources.databases.dao.api.EcontractDaoInterface;
-import resources.databases.dao.api.ExchangedValueDaoInterface;
-import software.controllers.CtrlCryptoPerson;
-import software.controllers.CtrlEcontract;
-import software.controllers.CtrlExchangedValue;
+import software.controllers.MasterController;
 
 public class EcontractDaoReacional implements EcontractDaoInterface {
     private ConexaoInterface conexao;
@@ -44,13 +27,15 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
         EcontractDirector ec_director = new EcontractDirector();
         Econtract econtract = (Econtract) null;
 
-        ///
-        CtrlExchangedValue ctrl_exv;
-        ctrl_exv = new CtrlExchangedValue();
-        ////
-        CtrlCryptoPerson ctrl_crp;
-        ctrl_crp = new CtrlCryptoPerson();
-
+//        ///
+//        CtrlExchangedValue ctrl_exv;
+//        ctrl_exv = new CtrlExchangedValue();
+//        ////
+//        CtrlCryptoPerson ctrl_crp;
+//        ctrl_crp = new CtrlCryptoPerson();
+//        ////
+        MasterController controller = new MasterController();
+        
         try{
             Statement st;
             st = conexao.getConnection().createStatement();
@@ -73,9 +58,9 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
                 String frameworkReference = resultados.getString("FRAMEWORK_REFERENCE").toUpperCase();
                 double frameworkPrice = resultados.getDouble("FRAMEWORK_PRICE");
 
-                Content content = ctrl_exv.findByContentId(contentId);
-                Party provider = ctrl_crp.findCryptoPersonById(partyId1);
-                Party consumer = ctrl_crp.findCryptoPersonById(partyId2);
+                Content content = controller.findContentById(contentId);
+                Party provider = controller.findCryptoPersonById(partyId1);
+                Party consumer = controller.findCryptoPersonById(partyId2);
 
                 Framework framework = null;
                 switch(frameworkComponent.toUpperCase()){
