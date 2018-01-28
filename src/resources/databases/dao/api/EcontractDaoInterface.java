@@ -15,4 +15,12 @@ public interface EcontractDaoInterface {
 	 * @param econtract {@link Econtract}
 	 */
 	void insertEcontract(Econtract econtract);
+	
+	/**
+	 * 
+	 * @param econtract {@link Econtract}
+	 * @param status int
+	 * @throws Exception
+	 */
+	void setEcontractStatus(Econtract econtract, int status) throws Exception;
 }

@@ -1,6 +1,7 @@
 package contracts;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 public class JustintimeEcontract {
@@ -14,6 +15,7 @@ public class JustintimeEcontract {
      */
     protected JustintimeEcontract() {
         this.timeToStart = new Date();
+        this.timeToStartLong = this.timeToStart.getTime();
     }
 
     /**
@@ -30,6 +32,7 @@ public class JustintimeEcontract {
      */
     protected void setTimeToStart(Date timeToStart) {
         this.timeToStart = timeToStart;
+        this.timeToStartLong = this.timeToStart.getTime();
     }
 
     /**
@@ -63,6 +66,7 @@ public class JustintimeEcontract {
      */
     protected void setTimeToStartLong(long timeToStartLong) {
         this.timeToStartLong = timeToStartLong;
+        this.timeToStart = new Date(this.timeToStartLong);
     }
 
 }

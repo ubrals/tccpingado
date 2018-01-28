@@ -66,10 +66,10 @@ public class Econtract {
 
     /**
      * 
-     * @param party {@link Collection} of {@link Party} related to the {@link Econtract}
+     * @param parties {@link Collection} of {@link Party} related to the {@link Econtract}
      */
-    protected void setParty(Collection<Party> party) {
-        this.parties = party;
+    protected void setParty(Collection<Party> parties) {
+        this.parties = parties;
     }
 
     /**

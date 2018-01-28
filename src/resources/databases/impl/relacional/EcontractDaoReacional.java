@@ -124,6 +124,7 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
         }
     }
     
+    @Override
     public void setEcontractStatus(Econtract econtract, int status) throws Exception{
         long id = econtract.getId();
         int statusNow = econtract.getManagementEcontract().getStatus();

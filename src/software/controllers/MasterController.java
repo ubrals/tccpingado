@@ -81,6 +81,16 @@ public class MasterController implements
         ect_dao.insertEcontract(econtract);
     }
     
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.dao.api.EcontractDaoInterface#setEcontractStatus(contracts.Econtract, int)
+     */
+    @Override
+    public void setEcontractStatus(Econtract econtract, int status) throws Exception {
+        EcontractDaoInterface ect_dao = new EcontractDaoReacional(conexao);
+        ect_dao.setEcontractStatus(econtract, status);
+    }
+    
     /**
      * 
      * @param content {@link Content}
