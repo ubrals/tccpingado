@@ -13,6 +13,14 @@ public class ConexaoJavaDbDerby implements ConexaoInterface {
     private String nomeBancoDados;
     private Connection conexao;
 
+    /**
+     * 
+     * @param usuario String
+     * @param senha String
+     * @param hostname String
+     * @param porta int
+     * @param nomeBancoDados String
+     */
     public ConexaoJavaDbDerby(String usuario, String senha, String hostname, int porta, String nomeBancoDados) {
         this.usuario = usuario;
         this.senha = senha;
@@ -21,6 +29,10 @@ public class ConexaoJavaDbDerby implements ConexaoInterface {
         this.nomeBancoDados = nomeBancoDados;
     }
     
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.impl.relacional.ConexaoInterface#getConnection()
+     */
     @Override
     public Connection getConnection() {
         if(conexao == null)
@@ -42,6 +54,10 @@ public class ConexaoJavaDbDerby implements ConexaoInterface {
         return conexao;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.impl.relacional.ConexaoInterface#close()
+     */
     @Override
     public void close() {
         try {

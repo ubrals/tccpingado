@@ -1,4 +1,4 @@
-package software.provisioning;
+package software.provisioning._deprec_;
 
 import entities.ISP;
 import entities.Party;
@@ -11,9 +11,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import pricing.components.TimeShares;
-import software.infrastructure.PlayerVideo;
+//import software.infrastructure.PlayerVideo;
 
-public class View extends Application implements Runnable {
+public class _deprec_View extends Application implements Runnable {
     
     private Party isp;
     private ContentDelivered contentDelivered;
@@ -21,10 +21,10 @@ public class View extends Application implements Runnable {
     private String time;
     private long sleep;
 
-    public View(){
+    public _deprec_View(){
     }
     
-    public View(Party isp, ContentDelivered contentDelivered){
+    public _deprec_View(Party isp, ContentDelivered contentDelivered){
         this.isp = isp;
         this.contentDelivered = contentDelivered;
         this.url = this.contentDelivered.getUrl();
@@ -41,7 +41,7 @@ public class View extends Application implements Runnable {
     
     
     public void Play() throws Exception{
-        Runnable runnable = new PlayerVideo(this.isp, this.contentDelivered, this.url);
+        Runnable runnable = null;//new PlayerVideo(this.isp, this.contentDelivered, this.url);
 //        Runnable runnable = new View();
         Thread th = new Thread(runnable);
         

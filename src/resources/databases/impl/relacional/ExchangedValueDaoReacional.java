@@ -18,10 +18,18 @@ import software.controllers.MasterController;
 public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
 	private ConexaoInterface conexao;
 
+	/**
+	 * 
+	 * @param conexao ConexaoInterface
+	 */
 	public ExchangedValueDaoReacional(ConexaoInterface conexao) {
 		this.conexao = conexao;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see resources.databases.dao.api.ExchangedValueDaoInterface#listContents()
+	 */
 	@Override
 	public Collection<Content> listContents() {
         List<Content> contents;
@@ -78,6 +86,10 @@ public class ExchangedValueDaoReacional implements ExchangedValueDaoInterface {
         return contents;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see resources.databases.dao.api.ExchangedValueDaoInterface#findContentById(long)
+	 */
 	@Override
 	public Content findContentById(long id) {
 		Content content = (Content) null;

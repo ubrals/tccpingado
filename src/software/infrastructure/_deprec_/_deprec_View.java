@@ -1,17 +1,17 @@
-package software.infrastructure;
+package software.infrastructure._deprec_;
 
 import contracts.Econtract;
 import entities.ISP;
 import entities.Producer;
 
-public class View {
+public class _deprec_View {
 
-    public View() {
+    public _deprec_View() {
         // TODO Auto-generated constructor stub
     }
 
     public static void main(String[] args) {
-        CriaEntidades entidades = new CriaEntidades();
+        _deprec_CriaEntidades entidades = null;//new CriaEntidades();
         entidades.criarEntidades();
         // TODO: Está comentado apos Builder
         // soh devera funcionar assim na versao TCC1

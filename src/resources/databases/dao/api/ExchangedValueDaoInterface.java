@@ -10,6 +10,7 @@ public interface ExchangedValueDaoInterface {
      * @return {@link Collection} of {@link Content}
      */
 	Collection<Content> listContents();
+	
 	/**
 	 * 
 	 * @param id long as Content id

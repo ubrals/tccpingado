@@ -9,6 +9,7 @@ public interface TransactionDaoInterface {
      * @param econtractId long as Econtract id
      */
     void insertTransaction(Transaction transaction, long econtractId);
+    
     /**
      * 
      * @param econtractId long as Econtract id

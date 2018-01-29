@@ -12,10 +12,18 @@ import resources.databases.dao.api.CryptoPersonDaoInterface;
 public class CryptoPersonDaoReacional implements CryptoPersonDaoInterface {
 	private ConexaoInterface conexao;
 
+	/**
+	 * 
+	 * @param conexao ConexaoInterface
+	 */
 	public CryptoPersonDaoReacional(ConexaoInterface conexao) {
 		this.conexao = conexao;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see resources.databases.dao.api.CryptoPersonDaoInterface#findCryptoPersonById(long)
+	 */
 	@Override
 	public CryptoPerson findCryptoPersonById(long id) {
 		CryptoPerson cryptoPerson = (CryptoPerson) null;

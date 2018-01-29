@@ -1,7 +1,7 @@
-Fri Jan 26 22:50:23 BRST 2018 : Apache Derby Servidor de Rede - 10.14.1.0 - (1808820) iniciado e pronto para aceitar conexões na porta 1527 em {3}
+Mon Jan 29 00:14:01 BRST 2018 : Apache Derby Servidor de Rede - 10.14.1.0 - (1808820) iniciado e pronto para aceitar conexões na porta 1527 em {3}
 ----------------------------------------------------------------
-Fri Jan 26 22:50:28 BRST 2018:
- Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instância a816c00e-0161-3518-0953-000060f604e6
+Mon Jan 29 00:14:35 BRST 2018:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.14.1.0 - (1808820): instância a816c00e-0161-3fb1-5381-000060f604e6
 no diretório de banco de dados /Users/ubrals/Google Drive/MACK/TCCII/tccpingado/db-derby-10.14.1.0-bin/bin/tccpingado 
 
 java.vendor=Oracle Corporation

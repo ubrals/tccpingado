@@ -1,4 +1,4 @@
-package software.infrastructure;
+package software.infrastructure._deprec_;
 
 import entities.ISP;
 import entities.Party;
@@ -16,7 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
-public class PlayerVideo extends Application implements Runnable {
+public class _deprec_PlayerVideo extends Application implements Runnable {
 
     private Party isp;
     private ContentDelivered contentDelivered;
@@ -31,7 +31,7 @@ public class PlayerVideo extends Application implements Runnable {
 //    public PlayerVideo(){
 //    }
     
-    public PlayerVideo(Party isp, ContentDelivered contentDelivered, String VIDEO_URL) {
+    public _deprec_PlayerVideo(Party isp, ContentDelivered contentDelivered, String VIDEO_URL) {
         this.isp=isp;
         this.contentDelivered=contentDelivered;
         this.VIDEO_URL=this.contentDelivered.getUrl();
@@ -61,7 +61,7 @@ public class PlayerVideo extends Application implements Runnable {
     
     @Override
     public void start(Stage palco) throws Exception {
-        PlayerVideo pv = new PlayerVideo(null, contentDelivered, VIDEO_URL);
+        _deprec_PlayerVideo pv = null;// = new PlayerVideo(null, contentDelivered, VIDEO_URL);
         Media media = new Media(VIDEO_URL); // 1
         MediaPlayer mediaPlayer = new MediaPlayer(media); // 2
         MediaView mediaView = new MediaView(mediaPlayer); // 3

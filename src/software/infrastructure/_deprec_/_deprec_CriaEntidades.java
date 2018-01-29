@@ -1,4 +1,4 @@
-package software.infrastructure;
+package software.infrastructure._deprec_;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import entities.values.ExchangedValue;
 import entities.values.Product;
 import resources.Wallet;
 
-public class CriaEntidades {
+public class _deprec_CriaEntidades {
      Wallet ispWallet;
      ISP isp;
 

@@ -16,13 +16,17 @@ public class TransactionDaoReacional implements TransactionDaoInterface {
     private ConexaoInterface conexao;
 
     /**
-     * @param conexao
+     * @param conexao ConexaoInterface
      */
     public TransactionDaoReacional(ConexaoInterface conexao) {
         super();
         this.conexao = conexao;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.dao.api.TransactionDaoInterface#insertTransaction(entities.Transaction, long)
+     */
     @Override
     public void insertTransaction(Transaction transaction, long econtractId) {
         try{
@@ -51,6 +55,10 @@ public class TransactionDaoReacional implements TransactionDaoInterface {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.dao.api.TransactionDaoInterface#getLastTransactionSeq(long)
+     */
     @Override
     public long getLastTransactionSeq(long econtractId) {
         long id=0l;

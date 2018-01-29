@@ -1,4 +1,4 @@
-package software.infrastructure;
+package software.infrastructure._deprec_;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -6,9 +6,9 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Date;
 
-public class Send {
+public class _deprec_Send {
 
-    public Send() {
+    public _deprec_Send() {
         // TODO Auto-generated constructor stub
     }
 

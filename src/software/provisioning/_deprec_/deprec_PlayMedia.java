@@ -1,16 +1,16 @@
-package software.provisioning;
+package software.provisioning._deprec_;
 
 import entities.Party;
 import entities.values.ContentDelivered;
 
-public class PlayMedia {
+public class deprec_PlayMedia {
     private Party isp;
     private ContentDelivered contentDelivered;
     private String url;
     private String time;
     private long sleep;
 
-    public PlayMedia(Party isp, ContentDelivered contentDelivered){
+    public deprec_PlayMedia(Party isp, ContentDelivered contentDelivered){
         this.isp = isp;
         this.contentDelivered = contentDelivered;
         this.url = this.contentDelivered.getUrl();

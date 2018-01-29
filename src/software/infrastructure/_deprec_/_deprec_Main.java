@@ -1,4 +1,4 @@
-package software.infrastructure;
+package software.infrastructure._deprec_;
 
 import java.sql.Connection; 
 import java.sql.DriverManager; 
@@ -9,7 +9,7 @@ import java.io.*;
 import java.sql.SQLException; 
 
 
-public class Main {
+public class _deprec_Main {
     public static final boolean EMBEDDED = true; 
     public static final String URL = "jdbc:derby://localhost:1527/"; 
     public static final String DRIVER = "org.apache.derby.jdbc.EmbeddedDriver"; 
@@ -22,10 +22,10 @@ public class Main {
     
     public static void main(String[] args) { 
         // TODO code application logic here 
-        Main myMain = new Main(); 
+//        Main myMain = new Main(); 
     } 
 
-    public Main() { 
+    public _deprec_Main() { 
         if (makeDB() != 0) { 
             System.exit(-1); 
         } 

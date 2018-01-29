@@ -17,11 +17,18 @@ import software.controllers.MasterController;
 public class EcontractDaoReacional implements EcontractDaoInterface {
     private ConexaoInterface conexao;
 
-
+    /**
+     * 
+     * @param conexao ConexaoInterface
+     */
     public EcontractDaoReacional(ConexaoInterface conexao) {
         this.conexao = conexao;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.dao.api.EcontractDaoInterface#findEcontractById(long)
+     */
     @Override
     public Econtract findEcontractById(long id) {
         EcontractDirector ec_director = new EcontractDirector();
@@ -84,6 +91,10 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
         return econtract;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.dao.api.EcontractDaoInterface#insertEcontract(contracts.Econtract)
+     */
     @Override
     public void insertEcontract(Econtract econtract) {
 
@@ -124,6 +135,10 @@ public class EcontractDaoReacional implements EcontractDaoInterface {
         }
     }
     
+    /*
+     * (non-Javadoc)
+     * @see resources.databases.dao.api.EcontractDaoInterface#setEcontractStatus(contracts.Econtract, int)
+     */
     @Override
     public void setEcontractStatus(Econtract econtract, int status) throws Exception{
         long id = econtract.getId();

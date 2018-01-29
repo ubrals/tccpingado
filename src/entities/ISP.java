@@ -17,6 +17,13 @@ public class ISP extends CryptoPerson implements CSP {
 
     private Collection<Content> contents = new ArrayList<Content>();
 
+    /**
+     * 
+     * @param id long as Party id
+     * @param name String
+     * @param password String
+     * @param account String
+     */
     public ISP(long id, String name, String password, String account) {
         super(id, name, password, account);
     }

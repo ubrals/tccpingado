@@ -1,4 +1,4 @@
-package software.provisioning;
+package software.provisioning._deprec_;
 
 ///
 //adaptado de:
@@ -12,18 +12,18 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
-public class PlayerVideoOrig extends Application implements Runnable {
+public class _deprec_PlayerVideoOrig extends Application implements Runnable {
 
     // private String VIDEO_URL =
     // "file:///Users/ubrals/git/Pingado/PvsNP_480p.mp4";
     private String VIDEO_URL = "http://localhost/PvsNP_480p.mp4";
 //    private static long econtractId;
 
-    public PlayerVideoOrig() {
+    public _deprec_PlayerVideoOrig() {
     }
 
     public static void main(String[] args) {
-        Runnable runnable = new PlayerVideoOrig();
+        Runnable runnable = new _deprec_PlayerVideoOrig();
         Thread th = new Thread(runnable);
 //        try { econtractId = Long.parseLong(args[0]); }
 //        catch (NumberFormatException e) {        }
