@@ -3,6 +3,8 @@ package software.blockchain.oracle;
 import java.net.Socket;
 import java.util.Date;
 
+import software.blockchain.connector.MakeSmart;
+
 public class DebitAccountDefault {
     private DebitAccountDefault(){}
     
@@ -70,5 +72,8 @@ public class DebitAccountDefault {
             System.out.println("..:ERR:" + obj.getClass().getName() + ":Could not process debit from the account: " + command[0] + ".Exit(" + debitProcess.exitValue() + ")");
             System.exit(debitProcess.exitValue());
         }
+        ///////
+        // TODO: colocar MakeSmart
+//        MakeSmart smart = new MakeSmart(econtract, account, contentid, decimals, price, fraction, timeToStart, status, valid, seller, value, buyerpwd, sellerpwd, d_work)
     }
 }
